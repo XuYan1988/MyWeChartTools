@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF46AD97-3F04-4575-9A57-9EBA5D864A61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WZAutoEyeModel</RootNamespace>
+    <AssemblyName>WZAutoEyeModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DGPager\DGPageOrder.cs" />
+    <Compile Include="DGPager\DGPageStatement.cs" />
+    <Compile Include="EAbandonHis.cs" />
+    <Compile Include="EAutoReadREC.cs" />
+    <Compile Include="EAutoReadRECOculist.cs" />
+    <Compile Include="EDocBaseInfo.cs" />
+    <Compile Include="EDocDuty.cs" />
+    <Compile Include="EDocSettleBatch.cs" />
+    <Compile Include="EDocSettleDTL.cs" />
+    <Compile Include="EDocSettleHDR.cs" />
+    <Compile Include="EExamDoc.cs" />
+    <Compile Include="EEyeImageAttachmentHis.cs" />
+    <Compile Include="EEyeImageBleedingHis.cs" />
+    <Compile Include="EGlaucomaReadREC.cs" />
+    <Compile Include="EHosCardInfo.cs" />
+    <Compile Include="EHosSettleBatch.cs" />
+    <Compile Include="EHosSettleDTL.cs" />
+    <Compile Include="EHosSettleHDR.cs" />
+    <Compile Include="EManualReadREC.cs" />
+    <Compile Include="EManualReadRECOculist.cs" />
+    <Compile Include="EMonthPlan.cs" />
+    <Compile Include="ENotice.cs" />
+    <Compile Include="EOrderPlan.cs" />
+    <Compile Include="EReadedImgREC.cs" />
+    <Compile Include="EReportFeedback.cs" />
+    <Compile Include="EReturnHis.cs" />
+    <Compile Include="MAddress.cs" />
+    <Compile Include="MAdminCardInfo.cs" />
+    <Compile Include="Mapping\EAbandonHisMap.cs" />
+    <Compile Include="Mapping\EAutoReadRECMap.cs" />
+    <Compile Include="Mapping\EAutoReadRECOculistMap.cs" />
+    <Compile Include="Mapping\EDocBaseInfoMap.cs" />
+    <Compile Include="Mapping\EDocDutyMap.cs" />
+    <Compile Include="Mapping\EDocSettleBatchMap.cs" />
+    <Compile Include="Mapping\EDocSettleDTLMap.cs" />
+    <Compile Include="Mapping\EDocSettleHDRMap.cs" />
+    <Compile Include="Mapping\EExamDocMap.cs" />
+    <Compile Include="Mapping\EEyeImageAttachmentHisMap.cs" />
+    <Compile Include="Mapping\EEyeImageBleedingHisMap.cs" />
+    <Compile Include="Mapping\EGlaucomaReadRECMap.cs" />
+    <Compile Include="Mapping\EHosCardInfoMap.cs" />
+    <Compile Include="Mapping\EHosSettleBatchMap.cs" />
+    <Compile Include="Mapping\EHosSettleDTLMap.cs" />
+    <Compile Include="Mapping\EHosSettleHDRMap.cs" />
+    <Compile Include="Mapping\EManualReadRECMap.cs" />
+    <Compile Include="Mapping\EManualReadRECOculistMap.cs" />
+    <Compile Include="Mapping\EMonthPlanMap.cs" />
+    <Compile Include="Mapping\ENoticeMap.cs" />
+    <Compile Include="Mapping\EOrderPlanMap.cs" />
+    <Compile Include="Mapping\EReadedImgRECMap.cs" />
+    <Compile Include="Mapping\EReportFeedbackMap.cs" />
+    <Compile Include="Mapping\EReturnHisMap.cs" />
+    <Compile Include="Mapping\MAddressMap.cs" />
+    <Compile Include="Mapping\MAdminCardInfoMap.cs" />
+    <Compile Include="Mapping\MAttachmentMap.cs" />
+    <Compile Include="Mapping\MCameraMap.cs" />
+    <Compile Include="Mapping\MCodeTableMap.cs" />
+    <Compile Include="Mapping\MDocHosMap.cs" />
+    <Compile Include="Mapping\MExamDocAttachmentMap.cs" />
+    <Compile Include="Mapping\MExamDocBleedingMap.cs" />
+    <Compile Include="Mapping\MEyeImageAttachmentMap.cs" />
+    <Compile Include="Mapping\MEyeImageBleedingMap.cs" />
+    <Compile Include="Mapping\MEyeImageBleedingOculistMap.cs" />
+    <Compile Include="Mapping\MEyeImageMap.cs" />
+    <Compile Include="Mapping\MHosCameraMap.cs" />
+    <Compile Include="Mapping\MHosConfigMap.cs" />
+    <Compile Include="Mapping\MHospitalMap.cs" />
+    <Compile Include="Mapping\MHospitalProjectTypeMap.cs" />
+    <Compile Include="Mapping\MLoginLogMap.cs" />
+    <Compile Include="Mapping\MMenuMap.cs" />
+    <Compile Include="Mapping\MMessageInfoMap.cs" />
+    <Compile Include="Mapping\MOculistHosMap.cs" />
+    <Compile Include="Mapping\MOfficeMap.cs" />
+    <Compile Include="Mapping\MOperationHistoryMap.cs" />
+    <Compile Include="Mapping\MPatientMap.cs" />
+    <Compile Include="Mapping\MPortMap.cs" />
+    <Compile Include="Mapping\MPrescriptionDoctorMap.cs" />
+    <Compile Include="Mapping\MRegionAddressMap.cs" />
+    <Compile Include="Mapping\MRegionMap.cs" />
+    <Compile Include="Mapping\MRoleMap.cs" />
+    <Compile Include="Mapping\MRoleMenuMap.cs" />
+    <Compile Include="Mapping\MSalesmanMap.cs" />
+    <Compile Include="Mapping\MSystemConfigMap.cs" />
+    <Compile Include="Mapping\MUserDocLevelMap.cs" />
+    <Compile Include="Mapping\MUserMap.cs" />
+    <Compile Include="Mapping\MUserRoleMap.cs" />
+    <Compile Include="MAttachment.cs" />
+    <Compile Include="MCamera.cs" />
+    <Compile Include="MCodeTable.cs" />
+    <Compile Include="MDocHos.cs" />
+    <Compile Include="MExamDocAttachment.cs" />
+    <Compile Include="MExamDocBleeding.cs" />
+    <Compile Include="MEyeImage.cs" />
+    <Compile Include="MEyeImageAttachment.cs" />
+    <Compile Include="MEyeImageBleeding.cs" />
+    <Compile Include="MEyeImageBleedingOculist.cs" />
+    <Compile Include="MEyeImageHos.cs" />
+    <Compile Include="MHosCamera.cs" />
+    <Compile Include="MHosConfig.cs" />
+    <Compile Include="MHospital.cs" />
+    <Compile Include="MHospitalProjectType.cs" />
+    <Compile Include="MLoginLog.cs" />
+    <Compile Include="MMenu.cs" />
+    <Compile Include="MMessageInfo.cs" />
+    <Compile Include="MOculistHos.cs" />
+    <Compile Include="MOffice.cs" />
+    <Compile Include="MOperationHistory.cs" />
+    <Compile Include="MPatient.cs" />
+    <Compile Include="MPort.cs" />
+    <Compile Include="MPrescriptionDoctor.cs" />
+    <Compile Include="MRegion.cs" />
+    <Compile Include="MRegionAddress.cs" />
+    <Compile Include="MRole.cs" />
+    <Compile Include="MRoleMenu.cs" />
+    <Compile Include="MSalesman.cs" />
+    <Compile Include="MSystemConfig.cs" />
+    <Compile Include="MUser.cs" />
+    <Compile Include="MUserDocLevel.cs" />
+    <Compile Include="MUserRole.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLDBConnect.cs" />
+    <Compile Include="ViewModel\AbandonVM.cs" />
+    <Compile Include="ViewModel\AreaReadVM.cs" />
+    <Compile Include="ViewModel\AreaTransferVM.cs" />
+    <Compile Include="ViewModel\DoctorManagementVM.cs" />
+    <Compile Include="ViewModel\DoctorSettlementVM.cs" />
+    <Compile Include="ViewModel\DOCUserVM.cs" />
+    <Compile Include="ViewModel\EChartsMapVM.cs" />
+    <Compile Include="ViewModel\EChartsVM.cs" />
+    <Compile Include="ViewModel\EDocBaseInfoVM.cs" />
+    <Compile Include="ViewModel\EDocSettleBatchVM.cs" />
+    <Compile Include="ViewModel\EExamDocVM.cs" />
+    <Compile Include="ViewModel\EHosSettleBatchVM.cs" />
+    <Compile Include="ViewModel\EManualReadRECVM.cs" />
+    <Compile Include="ViewModel\ENoticeVM.cs" />
+    <Compile Include="ViewModel\EnumVM.cs" />
+    <Compile Include="ViewModel\EReportFeedbackVM.cs" />
+    <Compile Include="ViewModel\EReturnHisVM.cs" />
+    <Compile Include="ViewModel\FundusScreeningVM.cs" />
+    <Compile Include="ViewModel\HospitalAccountVM.cs" />
+    <Compile Include="ViewModel\MAddressVM.cs" />
+    <Compile Include="ViewModel\MAdminCardInfoVM.cs" />
+    <Compile Include="ViewModel\MenuVM.cs" />
+    <Compile Include="ViewModel\MExamDocAttachmentVM.cs" />
+    <Compile Include="ViewModel\MExamDocBleedingVM.cs" />
+    <Compile Include="ViewModel\MEyeImageAttachmentVM.cs" />
+    <Compile Include="ViewModel\MEyeImageBleedingVM.cs" />
+    <Compile Include="ViewModel\MEyeImageExamdocVM.cs" />
+    <Compile Include="ViewModel\MEyeImageVM.cs" />
+    <Compile Include="ViewModel\MHospitalCountVM.cs" />
+    <Compile Include="ViewModel\MHospitalEyesResultImageVM.cs" />
+    <Compile Include="ViewModel\MOfficeVM.cs" />
+    <Compile Include="ViewModel\MUserVM.cs" />
+    <Compile Include="ViewModel\MyInfoVM.cs" />
+    <Compile Include="ViewModel\MPrescriptionDoctorVM.cs" />
+    <Compile Include="ViewModel\OneKeyPrintVM.cs" />
+    <Compile Include="ViewModel\PersonalAccount.cs" />
+    <Compile Include="ViewModel\ReadingDoctorVM.cs" />
+    <Compile Include="ViewModel\SearchCondition.cs" />
+    <Compile Include="ViewModel\UploadImgInfoVM.cs" />
+    <Compile Include="ViewModel\UserTokenVM.cs" />
+    <Compile Include="ViewModel\HospitalSettleListVM.cs" />
+    <Compile Include="ViewModel\HospitalSettleRangeVM.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

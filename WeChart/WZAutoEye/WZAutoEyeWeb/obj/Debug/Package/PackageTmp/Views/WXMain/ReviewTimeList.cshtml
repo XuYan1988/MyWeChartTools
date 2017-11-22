@@ -1,0 +1,217 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("报告绑定");
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>糖网筛防</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+            <div class="page__bd">
+                <div class="weui-cells__title">复查时间</div>
+                <div class="weui-cells">
+                </div>
+            </div>
+        </div>
+        <div id="loadmore" class="weui-loadmore" style="display:none">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="nomore" class="weui-loadmore weui-loadmore_line" style="display:none">
+            <span class="weui-loadmore__tips">无更多数据</span>
+        </div>
+    </script>
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+    <script src="../../Scripts/jquery.min.js"></script>
+    <script src="../../Scripts/jquery-weui.min.js"></script>
+</body>
+</html>
+
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+        //WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+    $(function () {
+        ReviewTimeListBind();
+    });
+</script>
+<script type="text/javascript">
+    var StaticPageCount = 5;//页面显示条数
+    var pageIndex = 0;//当前页面数   第0页为初始页面
+    var count = 0; //返回的记录数
+    var reviewTimeNumber = 1;
+    //加载更多
+    $(function () {
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function () {
+            var loadmore = document.getElementById("loadmore");
+            var nomore = document.getElementById("nomore");
+
+            if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                setTimeout(function () {
+                    loadmore.style.display = "none";
+                    nomore.style.display = "";
+                }, 1500);   //模拟延迟
+                return;
+            }
+            else {
+                loadmore.style.display = "";
+            }
+            if (loading) return;
+            var remainder = count % StaticPageCount;
+            var flag = false;
+
+            loading = true;
+            setTimeout(function () {
+                ReviewTimeListBind();
+                loading = false;
+            }, 1500);   //模拟延迟
+            loadmore.style.display = "none";
+        });
+    })
+    //绑定数据
+    function ReviewTimeListBind() {
+        var openid = '@ViewBag.OpenID';
+        var patient = '@ViewBag.PatientID';
+        $.post('@Url.Action("GetReviwTimeList", "WXMain")',
+                {
+                    openid: openid,
+                    pageIndex: pageIndex,
+                    pageCount: StaticPageCount,
+                },
+                function (data) {
+                    var jsonData = JSON.parse(data.JsonData);
+                    count = data.Total;
+                    var htmlData = "";
+                    if (jsonData != null && jsonData.length > 0) {
+                        for (var i = 0; i < jsonData.length; i++) {
+                            var isNoReview = false;
+                            //计算复查事件
+
+                            var checkTime = new Date(jsonData[i].CheckTime);//检查时间
+
+                            var checkTimeYear = checkTime.getFullYear();
+                            var checkTimeMonth = checkTime.getMonth() + 1;
+                            var checkTimeDay = checkTime.getDate();
+
+                            var reviewTimeYear = checkTimeYear;
+                            var reviewTimeMonth = checkTimeMonth;
+                            var reviewTimeDay = checkTimeDay;
+
+                            var result = jsonData[i].ImpressionCD; //检查结果（印象）
+                            switch (result) {
+                                case "Impression-1"://定期随访，一年复查眼底像。
+                                    reviewTimeYear = checkTimeYear + 1;
+                                    break;
+                                case "Impression-4"://定期随访，三个月复查眼底像。
+                                    reviewTimeMonth = checkTimeMonth + 3;
+                                    if (checkTimeMonth > 9) {
+                                        reviewTimeYear = checkTimeYear + 1;
+                                        reviewTimeMonth = reviewTimeMonth - 12;
+                                    }
+                                    break;
+                                case "Impression-5"://定期随访，六个月复查眼底像。
+                                    reviewTimeMonth = checkTimeMonth + 6;
+                                    if (checkTimeMonth > 6) {
+                                        reviewTimeYear = checkTimeYear + 1;
+                                        reviewTimeMonth = reviewTimeMonth - 12;
+                                    }
+                                    break;
+                                default:
+                                    //自动阅片 一年复查
+                                    if (result.indexOf("未见明显") >= 0) {
+                                        reviewTimeYear = checkTimeYear + 1;
+ 
+                                        break;
+                                    }
+                                        //自动阅片 六个月复查
+                                    else if (result.indexOf("可疑出血") >= 0) {
+                                        reviewTimeMonth = checkTimeMonth + 6;
+                                        if (checkTimeMonth > 6) {
+                                            reviewTimeYear = checkTimeYear + 1;
+                                            reviewTimeMonth = reviewTimeMonth - 12;
+                                        }
+                                        break;
+                                    }
+                                        //自动阅片 三个月复查
+                                    else if (result.indexOf("可见明显") >= 0) {
+                                        reviewTimeMonth = checkTimeMonth + 3;
+                                        if (checkTimeMonth > 9) {
+                                            reviewTimeYear = checkTimeYear + 1;
+                                            reviewTimeMonth = reviewTimeMonth - 12;
+                                        }
+                                        break;
+                                    }
+                                    else {
+                                        isNoReview = true;
+                                    }
+                                    break;
+                            }
+                            //绑定数据
+
+                            htmlData += "<a class=\"weui-cell weui-cell_access\"  href=\"javascript:;\">";
+                            htmlData += "<div class=\"weui-cell__bd\">";
+                            htmlData += "<p>" + reviewTimeNumber + ".患者姓名: " + jsonData[i].PatientNM + "</p>";
+                            htmlData += "<p>上次就诊医院: " + jsonData[i].HospitalName.replace(/\s/g, '') + "</p>";
+                            htmlData += "<p>上次就诊时间: " + checkTimeYear + "年" + checkTimeMonth + "月" + checkTimeDay + "日</p>";
+                            if (isNoReview) {
+                                htmlData += "<p>下次复查事件: 无复查提醒信息，请遵医嘱！</p>";
+                            }
+                            else {
+                                htmlData += "<p>下次复查事件: " + reviewTimeYear + "年" + reviewTimeMonth + "月" + reviewTimeDay + "日</p>";
+                            }
+                            htmlData += "</div>";
+                            htmlData += "</a>";
+                            reviewTimeNumber = reviewTimeNumber + 1;
+                        }
+                        $('.weui-cells').append(htmlData);
+                        htmlData = "";
+                    }
+                    pageIndex = pageIndex + 1;
+                });
+    }
+</script>
+

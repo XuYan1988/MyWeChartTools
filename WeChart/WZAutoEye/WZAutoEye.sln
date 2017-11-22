@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WZAutoEyeUtility", "WZAutoEyeUtility\WZAutoEyeUtility.csproj", "{E8F01FCA-1CE7-4929-A05C-F3194E3E0E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WZAutoEyeModel", "WZAutoEyeModel\WZAutoEyeModel.csproj", "{CF46AD97-3F04-4575-9A57-9EBA5D864A61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WZAutoEyeDAL", "WZAutoEyeDAL\WZAutoEyeDAL.csproj", "{A75AD562-8E9E-4404-9DBC-B4D952DA5104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WZAutoEyeWeb", "WZAutoEyeWeb\WZAutoEyeWeb.csproj", "{8396070D-D5F0-433C-B7D3-A444638A54E6}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://172.28.18.253:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WZAutoEyeUtility\\WZAutoEyeUtility.csproj
+		SccProjectName1 = WZAutoEyeUtility
+		SccLocalPath1 = WZAutoEyeUtility
+		SccProjectUniqueName2 = WZAutoEyeModel\\WZAutoEyeModel.csproj
+		SccProjectName2 = WZAutoEyeModel
+		SccLocalPath2 = WZAutoEyeModel
+		SccProjectUniqueName3 = WZAutoEyeDAL\\WZAutoEyeDAL.csproj
+		SccProjectName3 = WZAutoEyeDAL
+		SccLocalPath3 = WZAutoEyeDAL
+		SccProjectUniqueName4 = WZAutoEyeWeb\\WZAutoEyeWeb.csproj
+		SccProjectName4 = WZAutoEyeWeb
+		SccLocalPath4 = WZAutoEyeWeb
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8F01FCA-1CE7-4929-A05C-F3194E3E0E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F01FCA-1CE7-4929-A05C-F3194E3E0E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F01FCA-1CE7-4929-A05C-F3194E3E0E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F01FCA-1CE7-4929-A05C-F3194E3E0E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF46AD97-3F04-4575-9A57-9EBA5D864A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF46AD97-3F04-4575-9A57-9EBA5D864A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF46AD97-3F04-4575-9A57-9EBA5D864A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF46AD97-3F04-4575-9A57-9EBA5D864A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75AD562-8E9E-4404-9DBC-B4D952DA5104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75AD562-8E9E-4404-9DBC-B4D952DA5104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75AD562-8E9E-4404-9DBC-B4D952DA5104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75AD562-8E9E-4404-9DBC-B4D952DA5104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8396070D-D5F0-433C-B7D3-A444638A54E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8396070D-D5F0-433C-B7D3-A444638A54E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8396070D-D5F0-433C-B7D3-A444638A54E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8396070D-D5F0-433C-B7D3-A444638A54E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

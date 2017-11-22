@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <!--模板翻译-->
+  <resource name="糖尿病视网膜病变临床诊疗指南(2014年)">Guidelines for clinical diagnosis and treatment of diabetic retinopathy (2014)</resource>
+  <resource name="公司简介">Introduction</resource>
+  <resource name="产品服务">Product Service</resource>
+  <resource name="联系我们">Contact Us </resource>
+  <resource name="北京上工医信科技有限公司">Beijing ShangGongYiXin Technology Co., Ltd.</resource>
+
+  <!--登入翻译-->
+  <resource name="&quot;糖网&quot;病互联网自动筛查平台">Automated DR Screening Online</resource>
+  <resource name="新上商，关注您的健康！">Xinshangshang, Care for Your Health!</resource>
+  <resource name="用户名">Username</resource>
+  <resource name="请输入用户名">Please enter your username</resource>
+  <resource name="密码">Password</resource>
+  <resource name="请输入密码">Please enter your password</resource>
+  <resource name="登录">Sign in</resource>
+  <resource name="请选择登录方式">Please select login mode</resource>
+  <resource name="阅片医生账号">Personal Account</resource>
+  <resource name="医院账号">Organization Account</resource>
+  <resource name="或在浏览器的地址栏输入您医院或组织的URL">Or enter the URL of your organization in the address bar</resource>
+  <resource name="互联网自动筛查平台">Internet Automated Screening Online</resource>
+  <resource name="上工医信">ShangGongYIXin</resource>
+
+  <!--提示信息翻译-->
+  <resource name="您确定要退出吗？">Are you sure that you want to sign out?</resource>
+  <resource name="图片保存失败">Picture save failed</resource>
+
+  <!--提示标志翻译-->
+  <resource name="提示">Prompt</resource>
+  <resource name="退出">Sign out</resource>
+  <resource name="查看">View</resource>
+
+  <!--验证提示信息翻译-->
+  <resource name="用户名不能为空">Username can not be empty</resource>
+  <resource name="医生，你好！ 您现在准备好可以进入阅片模式了吗？请点击左上角的开始阅片。"></resource>
+
+  <!--修改密码部分-->
+  <resource name="请输入原始密码">Enter current password</resource>
+  <resource name="原始密码错误">Incorrect password.</resource>
+  <resource name="原始密码为空">Current password is empty.</resource>
+  <resource name="请输入新密码">Enter new password</resource>
+  <resource name="新密码至少8位">At least 8 characters required.</resource>
+  <resource name="新密码不能超过32位">No more than 32 charaters required.</resource>
+  <resource name="新密码只能是大小写英文字母、数字、特殊符号等3种以上的组合">New Password must include at least 1 upper-case letter, 1 lower-case letter, and 1 number.</resource>
+  <resource name="请确认新密码">Enter confirm password</resource>
+
+  <resource name="两次密码不一致">Inconsistent Password</resource>
+  <resource name="密码修改失败">Password modification fail</resource>
+  <resource name="密码修改成功">Password modification complete</resource>
+  <resource name="修改密码">Change Password</resource>
+  <resource name="为了密码安全,请注意">For password security, please note</resource>
+  <resource name="8-32字符">8-32 characters</resource>
+  <resource name="新密码必须包含大、小写英文字母和数字">New Password must include at least 1 upper-case letter, 1 lower-case letter, and 1 number</resource>
+  <resource name="允许输入特殊符号">Allow enter special symbols</resource>
+
+  <resource name="密码">Password</resource>
+  <resource name="请输入旧密码">Enter Current Password</resource>
+  <resource name="新密码">New Password</resource>
+  <resource name="确认新密码">Confirm New Password</resource>
+
+
+  <!--修改资料-->
+  <resource name="该项为必填项。">This information is required.</resource>
+  <resource name="格式不正确。">Wrong format.</resource>
+  <resource name="请输入数字。">Please enter the number.</resource>
+  <resource name="确认保存吗？">Confirm to save it?</resource>
+  <resource name="确认消息">Confirmation message</resource>
+  <resource name="保存成功">Saved successfully</resource>
+  <resource name="基本信息">Profile</resource>
+  <resource name="姓名">Name</resource>
+  <resource name="性别">Gender</resource>
+  <resource name="身份证">ID Number</resource>
+  <resource name="出生日期">DOB</resource>
+  <resource name="电话">Phone</resource>
+  <resource name="邮箱">Email</resource>
+  <resource name="医院">Hospital</resource>
+  <resource name="科室">Department</resource>
+  <resource name="从业年限(年)">Working Years</resource>
+  <resource name="职称">Position Title</resource>
+  <resource name="学历">Degree</resource>
+  <resource name="专长">Expertise</resource>
+  <resource name="照片">Picture</resource>
+  <resource name="保存">Save</resource>
+  <resource name="手机号码不可为空">Mobile phone number can not be empty</resource>
+  <resource name="确认">Confirm</resource>
+  <resource name="关闭">Close</resource>
+
+  <!--个人账户-->
+  <resource name="个人账户">Personal Account</resource>
+  <resource name="基数">Cardinal Number</resource>
+  <resource name="系数">Coefficient</resource>
+  <resource name="总点数">Total Points</resource>
+  <resource name="未清点数">Not Clear Points</resource>
+  <resource name="今日点数">Points Today</resource>
+  <resource name="返回">Back</resource>
+
+  <!--阅片医生账号管理-->
+  <resource name="请选择需要禁用的用户">Please select the user you want to disable</resource>
+  <resource name="共查询到">Total query to </resource>
+  <resource name="条记录"> records</resource>
+  <resource name="编辑">Edit</resource>
+  <resource name="允许登录">Allow login</resource>
+  <resource name="查找">Search</resource>
+  <resource name="禁用">Disable</resource>
+  <resource name="添加新用户">Add user</resource>
+  <resource name="删除">Delete</resource>
+  <resource name="操作">Operations</resource>
+  <resource name="用户名不可为空">Username can not be empty</resource>
+  <resource name="姓不可为空">Last name can not be empty</resource>
+  <resource name="名不可为空">First name can not be empty</resource>
+  <resource name="电话不可为空">Phone can not be empty</resource>
+  <resource name="格式不正确">Wrong format</resource>
+  <resource name="邮箱不可为空">Email can not be empty</resource>
+  <resource name="请输入正确的邮箱格式">Please enter a valid email format</resource>
+  <resource name="基数不可为空">Cardinal number can not be empty</resource>
+  <resource name="请输入数字">Enter the number</resource>
+  <resource name="输入值不能小于0">Input value can not be less than 0</resource>
+  <resource name="系数不可为空">Factor can not be empty</resource>
+  <resource name="输入值不能大于100">Input value can not be greater than 100</resource>
+  <resource name="生效日期不可为空">Effective date can not be empty</resource>
+  <resource name="医生签名不可为空">Doctors signature can not be empty</resource>
+  <resource name="默认密码">Default password</resource>
+  <resource name="姓">Last Name</resource>
+  <resource name="名">First Name</resource>
+  <resource name="男">Male</resource>
+  <resource name="女">Female</resource>
+  <resource name="生效日期">Effective date</resource>
+  <resource name="专长">Specialty</resource>
+  <resource name="医生签名">Doctor Signed</resource>
+  <resource name="选择签名">Choose Signature</resource>
+  <resource name="能">Can</resource>
+  <resource name="不能">Can not</resource>
+  <resource name="选择照片">choose photo</resource>
+  <resource name="提交">Submit</resource>
+  <resource name="无查询结果">No query data</resource>
+  <!--开始阅片-->
+  <resource name="已无待阅图像。本次点数：">No longer be read images. The number of points:</resource>
+  <resource name="请选择签名">Choose a signature</resource>
+  <resource name="签名信息不存在,请通知管理员">Signature information does not exist, please notify the administrator</resource>
+  <resource name="此图像是否处理完成，进入下一张？">Whether the image processing is completed, the next one?</resource>
+  <resource name="操作失败">operation failed</resource>
+  <resource name="是否结束本次阅片？本次点数：">Whether the end of this film-reading? The number of points:</resource>
+  <resource name="本次点数：">The number of points:</resource>
+  <resource name="眼底图像筛查">Fundus image screening</resource>
+  <resource name="编号">Index</resource>
+  <resource name="日期">Date</resource>
+  <resource name="年龄">Age</resource>
+  <resource name="血糖">Blood sugar</resource>
+  <resource name="体重">Weight</resource>
+  <resource name="眼压(左)">IOP（left）</resource>
+  <resource name="眼压(右)">IOP（right）</resource>
+  <resource name="视力(左)">Vision（left）</resource>
+  <resource name="视力(右)">Vision（right）</resource>
+  <resource name="矫正视力(左)">Corrected visual acuity (left)</resource>
+  <resource name="矫正视力(右)">Corrected visual acuity (right)</resource>
+  <resource name="眼睛">eye</resource>
+  <resource name="是否转诊">Whether referral</resource>
+  <resource name="印象">impression</resource>
+  <resource name="签字">Sign</resource>
+  <resource name="下一张">Next one</resource>
+  <resource name="结束阅片">End of reading</resource>
+  <resource name="请选择是否转诊">Please choose whether to transfer</resource>
+  <resource name="还剩下">left</resource>
+  <resource name="张片子没有阅读">photos without reading</resource>
+  <resource name="您确定要回退数据吗？">Are you sure you want to roll back data?</resource>
+  <resource name="您今日回退次数已经达到今日上限">You fallback today have reached the maximum number of times today</resource>
+  <resource name="是">Yes</resource>
+  <resource name="否">No</resource>
+  <resource name="回退">Fallback</resource>
+  <resource name="请选择图片的类型(左眼或者右眼)">Please select an image type (left eye or right eye)</resource>
+  <resource name="待阅片">Wait film-reading</resource>
+  <resource name="'是否转诊'和'建议'不一致，请再次确认！">'Whether referral' and 'Suggesion' are not identical,Confirm again please.</resource>
+  <resource name="图像质量">Image Quality</resource>
+  <resource name="模糊">Fuzzy</resource>
+  <resource name="清晰">Clear</resource>
+  <resource name="看不清">Not clear</resource>
+  <resource name="延后">Delay</resource>
+  <resource name="请选择延后时间。">Please choice delay hours.</resource>
+  <resource name="小时">hour</resource>
+  <resource name="您确定要延后处理此图像吗？">Are you sure you want to delay the images?</resource>
+  <!--眼底筛查-->
+  <resource name="图像整体质量">Total Image Quality</resource>
+  <resource name="图像细节质量">Detail Image Quality</resource>
+  <resource name="非常好">very good</resource>
+  <resource name="非常差">very bad</resource>
+  <resource name="干净">clean</resource>
+  <resource name="脏">dirty</resource>
+  <resource name="单位">unit</resource>
+  <resource name="类别">Category</resource>
+  <resource name="出血(蓝)">Hemorrhage(blue)</resource>
+  <resource name="渗出(绿)">Exudate(green)</resource>
+  <resource name="数量(个)">Number</resource>
+  <resource name="总面积">Total Area</resource>
+  <resource name="最大面积">Max Area</resource>
+  <resource name="镜头">Shot</resource>
+  <resource name="用于报告">Used report</resource>
+  <resource name="病例信息">Case information</resource>
+  <resource name="备注">Remarks</resource>
+  <resource name="出血渗出">Oozing bleeding</resource>
+  <resource name="生成报告">Generate reports</resource>
+  <resource name="眼底图像筛查报告">Fundus image screening report</resource>
+  <resource name="所见">Findings</resource>
+  <resource name="保存报告">Save Report</resource>
+  <resource name="请输入印象">Please enter impression</resource>
+  <resource name="在线报告地址">Online reports address</resource>
+  <resource name="查看报告">View report</resource>
+  <resource name="眼底图像查看">Fundus image viewing</resource>
+  <resource name="原始图像">Original image</resource>
+  <resource name="常规筛查">Routine screening</resource>
+  <resource name="深度筛查1">Depth screening 1</resource>
+  <resource name="深度筛查2">Depth screening 2</resource>
+  <resource name="打印">Print</resource>
+  <resource name="保存">Save</resource>
+  <resource name="上传日期">Upload Date</resource>
+  <resource name="上传时间">Upload Time</resource>
+  <resource name="更多条件">More</resource>
+  <resource name="筛查区分">Category</resource>
+  <resource name="图像质量">Image Quality</resource>
+  <resource name="视力">vision</resource>
+  <resource name="眼压">intraocular pressure</resource>
+  <resource name="状态">Status</resource>
+  <resource name="出血数量">Hemorrhage Num</resource>
+  <resource name="矫正视力">Corrected visual acuity</resource>
+  <resource name="出血总面积">Hemorrhage Area</resource>
+  <resource name="个"></resource>
+  <resource name="对比">Comparison</resource>
+  <resource name="区分">Category</resource>
+  <resource name="图像整体/细节质量">Total/Detail Image Quality</resource>
+  <resource name="处理结果">process result</resource>
+  <resource name="左眼">Left eye</resource>
+  <resource name="右眼">Right eye</resource>
+  <resource name="总面积(mm²)">total area(mm²)</resource>
+  <resource name="最大面积(mm²)">Max area(mm²)</resource>
+  <resource name="处理结果">process result</resource>
+  <resource name="此报告只作为健康筛选结果">This report is intended as health screening results</resource>
+  <resource name="不作为最终临床诊断">Not as the final clinical diagnosis</resource>
+  <resource name="操作人">Operator</resource>
+  <resource name="北京协和医院">Beijing Union Medical College Hospital</resource>
+
+  <!--点卡充值-->
+  <resource name="请输入正确的卡号和密码">Please enter the correct number and password</resource>
+  <resource name="该点卡已被使用">The card is already in use</resource>
+  <resource name="充值成功">Successful recharge</resource>
+  <resource name="请输入卡号和密码">Please enter the card number and password</resource>
+
+  <!--信息通知管理-->
+  <resource name="标题">Title</resource>
+  <resource name="是否发布">release or net</resource>
+  <resource name="发布时间">release time</resource>
+  <resource name="查看权限">View permissions</resource>
+  <resource name="发布">Release</resource>
+  <resource name="内容">Content</resource>
+  <resource name="添加新通知">Add a new notice</resource>
+  <resource name="信息通知">Information notification</resource>
+  <resource name="编辑信息通知">Edit information notification</resource>
+  <resource name="全部账户">All accounts</resource>
+  <resource name="全部">All</resource>
+
+  <!--医院结算-->
+  <resource name="您最多只能输入两位小数">You can only enter a maximum of two decimal places</resource>
+  <resource name="有必填项未填写">There are not required to fill in</resource>
+  <resource name="添加成功">Add successfully</resource>
+  <resource name="添加失败">Add failed</resource>
+  <resource name="没有满足条件的记录">A recording condition is not satisfied</resource>
+  <resource name="医院名称">Name of hospital</resource>
+  <resource name="日期区间">Date range</resource>
+  <resource name="此页面日期均以服务器日期为准">This page dates with whichever server</resource>
+  <resource name="添加新结算">Add a new settlement</resource>
+  <resource name="医院编码">Hospital Coding</resource>
+  <resource name="检查类型">Check Type</resource>
+  <resource name="单价">unit price</resource>
+  <resource name="数量">quantity</resource>
+  <resource name="总价">Total price</resource>
+  <resource name="您输入的内容必须为正数或0">Your inputs must be positive or 0</resource>
+  <resource name="结束日期不能大于今天">End date cannot be greater than today</resource>
+  <resource name="该结算批次已存在">The settlement batch already exists</resource>
+  <resource name="结束日期不能大于今天">End date cannot be greater than today</resource>
+  <resource name="结束日期不能早于开始时间">End date not earlier than the start time</resource>
+  <resource name="下载失败，请联系管理员">Download failed, please contact the administrator</resource>
+  <resource name="导出">Export</resource>
+  <resource name="导出EXCEL">Export EXCEL</resource>
+  <resource name="阅片流程类型">film-reading flow type</resource>
+  <resource name="阅片时间">film-reading time</resource>
+  <resource name="查询结果与日期区间不匹配">Query results do not match the date range</resource>
+  <resource name="上传数量"></resource>
+  <resource name="清空查询条件"></resource>
+  <resource name="医院添加日期"></resource>
+  <resource name="有无上传"></resource>
+  <resource name="有"></resource>
+  <resource name="无"></resource>
+  
+  <!--评估管理-->
+  <resource name="请选择要下载内容！">Please choose to download the content!</resource>
+  <resource name="患者姓名">Patient name</resource>
+  <resource name="阅片医生">film-reading doctor</resource>
+  <resource name="考核日期">Examination Date</resource>
+  <resource name="该阅片医生上次考核内容还未完成！">The film-reading the last examination the doctor have not yet been completed!</resource>
+  <resource name="请选择阅片医生！">Please select film-reading doctor</resource>
+  <resource name="请选择考核片！">Please select assessment sheet!</resource>
+
+  <!--医生结算-->
+  <resource name="医生姓名">Physicians Name</resource>
+  <resource name="点击选择医生">Click to select a doctor</resource>
+  <resource name="登录名">log-in name</resource>
+  <resource name="所属医院">Owned hospital</resource>
+  <resource name="医生电话">Doctors' phone numbe</resource>
+  <resource name="点数">Count</resource>
+  <resource name="结算区间">Billing Interval</resource>
+  <resource name="该阅片医生无阅片记录！">The film-reading record sheet Doctors Without reading!</resource>
+  <resource name="该阅片医生在选择的日期区间无阅片记录或已结算完成！">The doctor read the piece selected date range without reading record sheet or settlement is completed!</resource>
+  <resource name="请选择需要结算的医生">Please select the desired billing doctors</resource>
+  <resource name="请选择结算开始日期">Please select a billing start date</resource>
+  <resource name="请选择结算结束日期">Please select a billing end date</resource>
+  <resource name="数据有误">Wrong data</resource>
+  <!--待转诊区-->
+  <resource name="待转诊区">待转诊区</resource>
+  <resource name="生成报表日期">Date of report</resource>
+  <resource name="生成报表时间">Time of report</resource>
+  <!--待阅片区-->
+  <resource name="待阅片区">Wait film-reading area</resource>
+  <resource name="当前系统阅片模式为">Current system access mode</resource>
+  <resource name="阅片医生姓名">film-reading Physicians Name</resource>
+  <resource name="已无此条待阅信息">This entry is no longer to be read information</resource>
+  <resource name="限制阅片模式">Limit film-reading mode</resource>
+  <resource name="自由阅片模式">Free film-reading mode</resource>
+  <resource name="是否删除该数据？"></resource>
+  <!--已阅片区-->
+  <resource name="无内容导出！">No content export!</resource>
+  <resource name="导出">Export</resource>
+  <resource name="导出EXCEL">Export EXCEL</resource>
+  <resource name="已阅片区">Have read Area</resource>
+  <resource name="已无此条已阅信息">This entry no longer have read the information</resource>
+  <resource name="左">Left</resource>
+  <resource name="右">Right</resource>
+  <resource name="不确定">Uncertain</resource>
+<!--科室管理 2016-08-05 zzc-->
+  <resource name="科室名称">Department name</resource>
+  <resource name="科室编码">Department code</resource>
+  <resource name="科室名称（中）">Department name(Chinese)</resource>
+  <resource name="科室名称（英）">Department name(English)</resource>
+  <resource name="科室名称（中文）">Department name(Chinese)</resource>
+  <resource name="科室名称（英文）">Department name(English)</resource>
+  <resource name="医院名称">Name of hospital</resource>
+  <resource name="请选择需要删除的信息">Please select the information to be deleted</resource>
+  <resource name="添加新科室">Add new departments</resource>
+  <resource name="编辑科室">Edit departments</resource>
+  <resource name="查看科室">View departments</resource>
+  <resource name="没有满足条件的记录！">No records that meet the conditions!</resource>
+  <resource name="该科室已存在。">The department already exists.</resource>
+  <resource name="您不是管理员，无权操作！">You are not an administrator's authority to operate!</resource>
+  <resource name="该科室已被使用，无法删除！">The department is already in use can not be deleted!</resource>
+  <!--处方医生管理 2016-08-05 zzc-->
+  <resource name="处方医生管理">Ref Physician Management</resource>
+  <resource name="处方医生姓名">Ref Physician Name</resource>
+  <resource name="所属医院">Owned hospital</resource>
+  <resource name="医生姓名">Doctor Name</resource>
+  <resource name="该处方医生已存在。">The ref physician already exists.</resource>
+  <resource name="添加新处方医生">Add new ref physician</resource>
+  <resource name="查看处方医生">View ref physician</resource>
+  <resource name="编辑处方医生">Edit ref physician</resource>
+  <!--上传图像 2016-08-05 zzc-->
+  <resource name="上传图像">Upload Images</resource>
+  <resource name="必须为正整数。">The value must be a positive integer.</resource>
+  <resource name="请输入正确的邮箱。">please enter correct Email</resource>
+  <resource name="编号">Index</resource>
+  <resource name="请输入编号">Enter index</resource>
+  <resource name="区分">Category</resource>
+  <resource name="身份证">ID Number</resource>
+  <resource name="请输入身份证">Enter ID Number</resource>
+  <resource name="姓名">Name</resource>
+  <resource name="请输入姓名">Enter name</resource>
+  <resource name="年龄">Age</resource>
+  <resource name="请输入年龄">Enter age</resource>
+  <resource name="性别">Gender</resource>
+  <resource name="医生">Ref Physician</resource>
+  <resource name="眼压（左）">IOP（left）</resource>
+  <resource name="请输入眼压（左）">Enter intraocular pressure（left）</resource>
+  <resource name="眼压（右）">IOP（right）</resource>
+  <resource name="请输入眼压（右）">Enter intraocular pressure（right）</resource>
+  <resource name="视力（左）">Vision（left）</resource>
+  <resource name="请输入视力（左）">Enter Vision（left）</resource>
+  <resource name="视力（右）">Vision（right）</resource>
+  <resource name="请输入视力（右）">Enter Vision（right）</resource>
+  <resource name="矫正视力（左）">Corrected visual acuity（left）</resource>
+  <resource name="请输入矫正视力（左）">Enter Corrected visual acuity（left）</resource>
+  <resource name="矫正视力（右）">Corrected visual acuity（right）</resource>
+  <resource name="请输入矫正视力（右）">Enter Corrected visual acuity（right）</resource>
+  <resource name="血糖">Blood Sugar</resource>
+  <resource name="请输入血糖浓度">Enter blood sugar</resource>
+  <resource name="体重">Weight</resource>
+  <resource name="请输入体重">Enter weight</resource>
+  <resource name="联系方式等">e.g. Contacts</resource>
+  <resource name="邮箱">Email</resource>
+  <resource name="请输入邮箱">Enter email</resource>
+  <resource name="手机">Phone</resource>
+  <resource name="请输入手机号码">Enter phone number</resource>
+  <resource name="请输入正确的手机号码">please enter correct phone number</resource>
+  <resource name="备注">Remarks</resource>
+  <resource name="请输入备注">Enter remarks</resource>
+  <resource name="眼底图像">Retinal Images</resource>
+  <resource name="选择图像">Choose Images</resource>
+  <resource name="上传文件数量不能超过2张">Count of uploaded files can not be more than 2</resource>
+  <resource name="取消">Cancel</resource>
+  <resource name="重试">Try again</resource>
+  <resource name="确定">Confirm</resource>
+  <!--一键打印-->
+  <resource name="姓名">Name</resource>
+  <resource name="生成报告日期">Generate reports Date</resource>
+  <resource name="是否打印过">Whether or not printed</resource>
+  <resource name="一键打印">One-touch printing</resource>
+  <resource name="已打印过">printed</resource>
+  <resource name="未打印过">unprinted</resource>
+  <resource name="打印">print</resource>
+  <resource name="确定">confirm</resource>
+  <resource name="确定">confirm</resource>
+<!--2016-08-24 zzc 补充翻译内容-->
+  <resource name="通知标题">Notice title</resource>
+  <resource name="发布者">Publisher</resource>
+  <resource name="更多">More</resource>
+  <resource name=" 医生，你好！"> Hello, Doctor!</resource>
+  <resource name ="印象：">impression:</resource>
+  <resource name ="查看结果">View results</resource>
+  <resource name ="请至少选择一组图像，用于生成报告。">Please select at least one set of images to generate a report.</resource>
+  <resource name="您尚未选择任何医院">You have not chosen any hospital</resource>
+  <!--2016-08-29 zzc 眼底筛查新增修改 -->
+  <resource name="影像描述">Image description</resource>
+  <resource name="盘沿形态">Disk edge shape</resource>
+  <resource name="A/V值">A/V Value</resource>
+  <resource name="黄斑区">Macular region</resource>
+  <resource name="周边视网膜">Peripheral retina</resource>
+  <resource name="其他">Other</resource>
+  <resource name="建议：">Suggesion</resource>
+  <resource name ="提示信息">Tips</resource>
+  <resource name="阅片医生签字">Doctor signature</resource>
+  <resource name="技术咨询">Technical consultation</resource>
+  <resource name="请选择技术咨询">Please select technical consultation</resource>
+  <resource name="科室不可为空">Department can not be empty</resource>
+  <resource name="时间">Time</resource>
+  <resource name="编辑成功">Edit successfully</resource>
+  <resource name="修改成功！">Update successfully!</resource>
+  <resource name="操作成功！">Operate successfully!</resource>
+  <resource name="眼底筛选">Fundus screening</resource>
+  <resource name="科室管理">Department management</resource>
+  <resource name="用户管理">User management</resource>
+  <resource name="资源下载">Resources Download</resource>
+  <resource name="修改资料">Modify data</resource>
+  <resource name="未输入">Without input</resource>
+  <resource name="年龄不能大于150岁。">Age should not be more than 150 years old.</resource>
+  <resource name="退出成功！">Sign out successfully!</resource>
+  <resource name="请使用医院账号进行登录">Sign into organization account</resource>
+  <resource name="医院码">Code</resource>
+  <resource name="公司首页">Company Home Page</resource>
+  <resource name="用户名或密码错误！">Username or password is incorrect.</resource>
+  <resource name="首页">Home Page</resource>
+  <resource name="处理中">In treatment</resource>
+  <resource name="请选择单位">Please select unit</resource>
+  <resource name="保存查询条件失败">Save query condition failed</resource>
+  <!--2016-09-05 zzc 一键打印新增-->
+  <resource name="暂无打印内容！">No print content !</resource>
+  
+  <!--图片处理按钮-->
+  <resource name="裁剪">Cut</resource>
+  <resource name="保存">Save</resource>
+  <resource name="点连线">Two point connection</resource>
+  <resource name="杯盘间内点">Disk point</resource>
+  <resource name="视杯线内点">Optic cup point</resource>
+  <resource name="画线">Line</resource>
+  <resource name="三点画圆">Circle is determined by three points</resource>
+  <resource name="清除">Eliminate</resource>
+  <resource name="重置">Reset</resource>
+  <resource name="仅允许画一个杯盘间内点">Only allowed to draw a disc point</resource>
+  <resource name="仅允许画一个视杯线内点">Only to draw a point of view</resource>
+  <resource name="请画一个杯盘间内点">Please draw a disc point</resource>
+  <resource name="请画一个视杯线内点">Please draw a picture</resource>
+  <resource name="画点失败，请刷新界面">Painting point failed, please refresh the interface</resource>
+  <!--2016-09-19 zzc 一键打印报告-->
+  <resource name="正常值">Normal Value</resource>
+  <resource name="操作者：">Operator:</resource>
+  <resource name="技术咨询">Technical consultation</resource>
+</root>

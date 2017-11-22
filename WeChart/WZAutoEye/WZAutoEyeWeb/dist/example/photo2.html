@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>上工医信</title>
+    <link rel="stylesheet" href="../style/weui.css" />
+    <link rel="stylesheet" href="./example.css" />
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+
+
+        <div class="page">
+
+            <div class="page__bd">
+                <div class="weui-gallery" id="gallery">
+                    <span class="weui-gallery__img" id="galleryImg"></span>
+
+                </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-uploader">
+
+                                <div class="weui-uploader__bd">
+                                    <ul class="weui-uploader__files" id="uploaderFiles">
+                                        <li class="weui-uploader__file" style="background-image:url(../../FileUpload/EyePic/yiyuan1/20170925/20170925145347485.jpg)"></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+                    $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+                    $uploaderInput = $("#uploaderInput"),
+                    $uploaderFiles = $("#uploaderFiles")
+                ;
+
+                $uploaderInput.on("change", function (e) {
+                    var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+                    for (var i = 0, len = files.length; i < len; ++i) {
+                        var file = files[i];
+
+                        if (url) {
+                            src = url.createObjectURL(file);
+                        } else {
+                            src = e.target.result;
+                        }
+
+                        $uploaderFiles.append($(tmpl.replace('#url#', src)));
+                    }
+                });
+                $uploaderFiles.on("click", "li", function () {
+                    $galleryImg.attr("style", this.getAttribute("style"));
+                    $gallery.fadeIn(100);
+                });
+                $gallery.on("click", function () {
+                    $gallery.fadeOut(100);
+                });
+            });
+        </script>
+        
+
+
+
+      
+    </script>
+
+
+    <script src="./zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="./example.js"></script>
+</body>
+</html>
+
+

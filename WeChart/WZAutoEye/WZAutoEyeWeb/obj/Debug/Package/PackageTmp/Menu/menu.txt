@@ -1,0 +1,97 @@
+{
+    "button": [
+        {
+            "name": "健康管理", 
+            "sub_button": [
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "扫一扫", 
+                    "key": "ScanCode", 
+                    "sub_button": [ ]
+                },                 {
+                    "type": "view", 
+                    "name": "手动输入", 
+                    "key": "ViewReport", 
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx77b96dd9b5498bac&redirect_uri=http%3A%2F%2F16k59360l5.imwork.net%2FWXMain%2FBandReport&response_type=code&scope=snsapi_userinfo&state=13959552#wechat_redirect"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "成员管理", 
+                    "key": "ViewReport", 
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx77b96dd9b5498bac&redirect_uri=http%3A%2F%2F16k59360l5.imwork.net%2FWXMain%2FPatientList&response_type=code&scope=snsapi_userinfo&state=13959552#wechat_redirect"
+                }, 
+				{
+                    "type": "click", 
+                    "name": "复查时间", 
+                    "key": "ReviewTime"
+                },
+				{
+					"type":"view",
+					"name":"健康知识",
+					"key":"DiabeticRetinopathy",
+					"url": "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUyNjQxMDUwMA==&scene=124#wechat_redirect"
+
+				}
+            ]
+        }, 
+        {
+		"name": "医生入口", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "查询报告", 
+                    "key": "ViewReport", 
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx77b96dd9b5498bac&redirect_uri=http%3A%2F%2F16k59360l5.imwork.net%2FWXMain%2FReportListForHos&response_type=code&scope=snsapi_userinfo&state=13959552#wechat_redirect"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "医生培训", 
+                    "key": "DoctorTrain", 
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx77b96dd9b5498bac&redirect_uri=http%3A%2F%2F16k59360l5.imwork.net%2FWXMain%2FDoctorTrain&response_type=code&scope=snsapi_userinfo&state=13959552#wechat_redirect"
+                }, 
+				{
+					"type":"view",
+					"name":"学术前沿",
+					"key":"Academic",
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx77b96dd9b5498bac&redirect_uri=http%3A%2F%2F16k59360l5.imwork.net%2FWXMain%2FAcademic&response_type=code&scope=snsapi_userinfo&state=13959552#wechat_redirect"
+				}
+            ]
+            
+        }, 
+        {
+            "name": "关于我们", 
+            "sub_button": [
+                {
+                    "type": "click", 
+                    "name": "工程介绍", 
+                    "key": "Project1"
+				
+                }, 
+                {
+                    "type": "view", 
+                    "name": "科室介绍", 
+                    "key": "Department",
+					"url": "http://16k59360l5.imwork.net/WXMain/DepartmentList"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "专家介绍", 
+                    "key": "ConsultDoctor",
+					"url": "http://16k59360l5.imwork.net/WXMain/ConsultDoctorList"
+                },
+				{
+                    "type": "click", 
+                    "name": "上工医信", 
+                    "key": "SGEX"
+                  
+                },
+				{
+                    "type": "click", 
+                    "name": "帮  助", 
+                    "key": "Media"
+                  
+                }
+            ]
+        }
+    ]
+}

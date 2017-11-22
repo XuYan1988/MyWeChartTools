@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+
+
+    function ImgDisplay() {
+        $.post("@Url.Content("~/WXMain/ImgDisplay")",
+    {},
+
+    function (data) {
+
+    }
+         );
+
+    }
+
+
+    function SendOnceSubMessage() {
+        $.post("@Url.Content("~/WXMain/SendOnceSubMessage")",
+    {},
+
+    function (data) {
+
+    }
+         );
+
+    }
+
+    function SendFormatMessage() {
+        $.post("@Url.Content("~/WXMain/SendFormatMessage")",
+    {},
+
+    function (data) {
+
+    }
+         );
+
+    }
+
+
+    function GetmediaMessage() {
+        $.post("@Url.Content("~/WXMain/GetMedia_id")",
+    {},
+
+    function (data) {
+
+    }
+         );
+
+    }
+
+</script>
+
+<h2>Index</h2>
+
+<input type="button" value="添加菜单" onclick="ImgDisplay()" />
+<input type="button" value="发送一次性消息" onclick="SendOnceSubMessage()" />
+<input type="button" value="发送模板消息（慎点，点多了会封号）" onclick="SendFormatMessage()" />
+@*<input type="button" value="获取素材" onclick="GetmediaMessage()" />*@
+

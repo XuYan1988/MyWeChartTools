@@ -1,0 +1,158 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("医生登入");
+    Layout = "";
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/Custom/jquery")
+@Scripts.Render("~/Scripts/Custom/jquery.Huploadify.js")
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+        //WeixinJSBridge.call('hideOptionMenu');
+    }
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+
+        $('#btnBand').attr("class", "weui-btn weui-btn_primary");
+        $('#btnBand').attr("onclick", "bandReport()");
+        document.getElementById('btnBand').innerHTML = "登入";
+
+
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+</script>
+<script type="text/javascript">
+    function bandReport() {
+        var loginID = $('#idCard').val();
+        var passWord = $('#name').val();
+        var idcard_div = document.getElementById('idcard_div');
+        var idname_div = document.getElementById('idname_div');
+
+        if (loginID == "") {
+            idcard_div.setAttribute("class", "weui-cell weui-cell_warn");
+        }
+        if (passWord == "") {
+            idname_div.setAttribute("class", "weui-cell weui-cell_warn");
+        }
+        if (loginID == "" || passWord == "") {
+            return;
+        }
+        $('#btnBand').attr("class", "weui-btn weui-btn_disabled weui-btn_primary");
+        $('#btnBand').attr("onclick", "");
+        document.getElementById('btnBand').innerHTML = "正在登入";
+
+        var openid = '@ViewBag.OpenID';
+        var t = '@ViewBag.Type';
+        $.post('@Url.Action("BandHosAction", "WXMain")',
+                {
+                    openid: openid,//微信id
+                    loginID: loginID,//账号
+                    passWord: passWord,//密码
+                    t:t, //请求访问的页面标识
+                },
+        function (data) {
+
+            if (data == 1) {
+                //成功
+                if (t == "1")
+                {
+                    //跳转至医生培训
+                    window.location.href = "/WXMain/DoctorTrain";
+                }
+                else if (t == "2")
+                {
+                    //跳转至学术前沿
+                    window.location.href = "/WXMain/Academic";
+                }
+                else
+                {
+                    //跳转至查看报告
+                    window.location.href = "/WXMain/ReportListForHos";
+                }
+
+            }
+            else {
+                //失败
+                window.location.href = "/WXMain/Warn?flag=1";
+            }
+        });
+    }
+    function changeidCard() {
+        idcard_div.setAttribute("class", "weui-cell");
+    }
+    function changeName() {
+        idname_div.setAttribute("class", "weui-cell");
+    }
+
+</script>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>糖网筛防</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+            <div class="page__bd">
+                <div class="weui-cells__title">医生登入</div>
+                <div class="weui-cells weui-cells_form">
+                    <div id="idcard_div" class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label"></label>医生账号</div>
+                        <div class="weui-cell__bd">
+                            <input id="idCard" class="weui-input" type="text" placeholder="医生账号" onmousedown="changeidCard()" />
+                        </div>
+                        <div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+                    <div id="idname_div" class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label"></label>密码</div>
+                        <div class="weui-cell__bd">
+                            <input id="name" class="weui-input" type="password" placeholder="密码" onkeyup="document.getElementById('a').value=this.value.replace(/./g,'%');" onmousedown="changeName()" />
+                        </div>
+                        <div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="page__bd page__bd_spacing" style="margin-top:5px;margin-left:10px;margin-right:10px;margin-bottom:5px" >
+                    <a id="btnBand" href="javascript:;" class="weui-btn weui-btn_primary" onclick="bandReport()">登入</a>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+D:\Work\医院系统\AutoEye\PictureDownload\bin\Debug\PictureDownload.exe.config
+D:\Work\医院系统\AutoEye\PictureDownload\bin\Debug\PictureDownload.exe.manifest
+D:\Work\医院系统\AutoEye\PictureDownload\bin\Debug\PictureDownload.application
+D:\Work\医院系统\AutoEye\PictureDownload\bin\Debug\PictureDownload.exe
+D:\Work\医院系统\AutoEye\PictureDownload\bin\Debug\PictureDownload.pdb
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.PictureForm.resources
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.Properties.Resources.resources
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.csproj.GenerateResource.Cache
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.exe.manifest
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.application
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.exe
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.pdb
+D:\Work\医院系统\AutoEye\PictureDownload\obj\Debug\PictureDownload.csprojResolveAssemblyReference.cache

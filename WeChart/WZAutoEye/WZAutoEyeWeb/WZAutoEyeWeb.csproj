@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8396070D-D5F0-433C-B7D3-A444638A54E6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WZAutoEyeWeb</RootNamespace>
+    <AssemblyName>WZAutoEyeWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\bootstrap-datetimepicker.css" />
+    <Content Include="Content\Custom\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\Custom\colorbox.css" />
+    <Content Include="Content\Custom\Custom.css" />
+    <Content Include="Content\Custom\dexhin.login.css" />
+    <Content Include="Content\Custom\dexhin.tw.zh.css" />
+    <Content Include="Content\Custom\fakeLoader.css" />
+    <Content Include="Content\Custom\figview.css" />
+    <Content Include="Content\Custom\fine-uploader.css" />
+    <Content Include="Content\Custom\hint.css" />
+    <Content Include="Content\Custom\Huploadify.css" />
+    <Content Include="Content\Custom\jquery.alerts.css" />
+    <Content Include="Content\Custom\jquery.Jcrop.css" />
+    <Content Include="Content\Custom\lhgcalendar.css" />
+    <Content Include="Content\Custom\loading.css" />
+    <Content Include="Content\Custom\myRadio.css" />
+    <Content Include="Content\Custom\no.response.css" />
+    <Content Include="Content\Custom\polaris.css" />
+    <Content Include="Content\Custom\print-list-1-zh.css" />
+    <Content Include="Content\Custom\print-list-1-zh_02.css" />
+    <Content Include="Content\Custom\print-list-print-1-zh.css" />
+    <Content Include="Content\Custom\print-list-print-1-zh_02.css" />
+    <Content Include="Content\Custom\slider-pro.min.css" />
+    <Content Include="Content\Custom\tips.css" />
+    <Content Include="Content\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="Content\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="dist\example\actionsheet.html" />
+    <Content Include="dist\example\article.html" />
+    <Content Include="dist\example\example.css" />
+    <Content Include="dist\example\example.js" />
+    <Content Include="dist\example\images\icon_footer.png" />
+    <Content Include="dist\example\images\icon_footer_link.png" />
+    <Content Include="dist\example\images\icon_intro.png" />
+    <Content Include="dist\example\images\icon_nav_actionSheet.png" />
+    <Content Include="dist\example\images\icon_nav_article.png" />
+    <Content Include="dist\example\images\icon_nav_button.png" />
+    <Content Include="dist\example\images\icon_nav_cell.png" />
+    <Content Include="dist\example\images\icon_nav_dialog.png" />
+    <Content Include="dist\example\images\icon_nav_feedback.png" />
+    <Content Include="dist\example\images\icon_nav_flow.png" />
+    <Content Include="dist\example\images\icon_nav_form.png" />
+    <Content Include="dist\example\images\icon_nav_icons.png" />
+    <Content Include="dist\example\images\icon_nav_layout.png" />
+    <Content Include="dist\example\images\icon_nav_msg.png" />
+    <Content Include="dist\example\images\icon_nav_nav.png" />
+    <Content Include="dist\example\images\icon_nav_panel.png" />
+    <Content Include="dist\example\images\icon_nav_progress.png" />
+    <Content Include="dist\example\images\icon_nav_search.png" />
+    <Content Include="dist\example\images\icon_nav_search_bar.png" />
+    <Content Include="dist\example\images\icon_nav_special.png" />
+    <Content Include="dist\example\images\icon_nav_tab.png" />
+    <Content Include="dist\example\images\icon_nav_toast.png" />
+    <Content Include="dist\example\images\icon_nav_z-index.png" />
+    <Content Include="dist\example\images\icon_nav_zindex.png" />
+    <Content Include="dist\example\images\icon_tabbar.png" />
+    <Content Include="dist\example\images\layers\content.png" />
+    <Content Include="dist\example\images\layers\navigation.png" />
+    <Content Include="dist\example\images\layers\popout.png" />
+    <Content Include="dist\example\images\layers\transparent.gif" />
+    <Content Include="dist\example\images\logo.png" />
+    <Content Include="dist\example\images\pic_160.png" />
+    <Content Include="dist\example\images\pic_article.png" />
+    <Content Include="dist\example\images\vcode.jpg" />
+    <Content Include="dist\example\images\中国糖网筛防工程.jpg" />
+    <Content Include="dist\example\index.html" />
+    <Content Include="dist\example\loadmore2.html" />
+    <Content Include="dist\example\loadmore.html" />
+    <Content Include="dist\example\photo.html" />
+    <Content Include="dist\example\photo2.html" />
+    <Content Include="dist\example\project.html" />
+    <Content Include="dist\example\register.html" />
+    <Content Include="dist\example\report.html" />
+    <Content Include="dist\example\snapshot\actionSheet.png" />
+    <Content Include="dist\example\snapshot\button.png" />
+    <Content Include="dist\example\snapshot\cell.png" />
+    <Content Include="dist\example\snapshot\dialog1.png" />
+    <Content Include="dist\example\snapshot\dialog2.png" />
+    <Content Include="dist\example\snapshot\grid.png" />
+    <Content Include="dist\example\snapshot\icons.png" />
+    <Content Include="dist\example\snapshot\progress.png" />
+    <Content Include="dist\example\snapshot\qrcode.png" />
+    <Content Include="dist\example\snapshot\result.png" />
+    <Content Include="dist\example\snapshot\text.png" />
+    <Content Include="dist\example\snapshot\toast1.png" />
+    <Content Include="dist\example\snapshot\toast2.png" />
+    <Content Include="dist\example\success.html" />
+    <Content Include="dist\example\test.html" />
+    <Content Include="dist\example\warn.html" />
+    <Content Include="dist\example\zepto.min.js" />
+    <Content Include="dist\style\weui.css" />
+    <Content Include="dist\style\weui.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\1按钮.png" />
+    <Content Include="Images\404.jpg" />
+    <Content Include="Images\butt01.png" />
+    <Content Include="Images\butt02.png" />
+    <Content Include="Images\checkbox%402x.png" />
+    <Content Include="Images\display.png" />
+    <Content Include="Images\down.png" />
+    <Content Include="Images\hide.png" />
+    <Content Include="Images\Hos.png" />
+    <Content Include="Images\login.png" />
+    <Content Include="Images\name.png" />
+    <Content Include="Images\pass.png" />
+    <Content Include="Images\Patient.png" />
+    <Content Include="Images\shu.png" />
+    <Content Include="Images\up.png" />
+    <Content Include="Images\专家%402x.png" />
+    <Content Include="Images\内分泌%402x.png" />
+    <Content Include="Images\学术前沿.jpg" />
+    <Content Include="Images\学术前沿2.png" />
+    <Content Include="Images\工程介绍.jpg" />
+    <Content Include="Images\眼%402x.png" />
+    <Content Include="Images\视觉器官.png" />
+    <Content Include="Images\矢量智能对象%402x %282%29.png" />
+    <Content Include="Images\矢量智能对象%402x.png" />
+    <Content Include="Images\矩形3.png" />
+    <Content Include="Languages\en-us\Common_Resource.xml" />
+    <Content Include="Languages\zh-cn\Common_Resource.xml" />
+    <Content Include="Menu\menu.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="HandlerWX.ashx" />
+    <Content Include="Content\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\font\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bootstrap.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\extras.less" />
+    <Content Include="Content\font-awesome\less\font-awesome-ie7.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome-ie7.scss" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bootstrap.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_extras.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Scripts\jquery-weui.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Views\WXMain\images\圆角矩形2.png" />
+    <Content Include="Views\WXMain\images\矩形3.png" />
+    <Content Include="WXMain\erweima\20170523\20170523153716374.Gif" />
+    <Content Include="WXMain\erweima\20170523\20170523153820072.Gif" />
+    <Content Include="WXMain\erweima\20170523\20170523154212682.Gif" />
+    <Content Include="WXMain\erweima\20170523\20170523155401133.Gif" />
+    <Content Include="WXMain\erweima\20170523\20170523160352494.Gif" />
+    <Content Include="WXMain\images\beijingtongren.jpg" />
+    <Content Include="WXMain\images\consultdoctor.png" />
+    <Content Include="WXMain\images\cover.jpg" />
+    <Content Include="WXMain\images\department.jpg" />
+    <Content Include="WXMain\images\diabeticretinopathy.jpg" />
+    <Content Include="WXMain\images\dongnandaxue.jpg" />
+    <Content Include="WXMain\images\moren.jpg" />
+    <Content Include="WXMain\images\project.jpg" />
+    <Content Include="WXMain\images\sunzilin.png" />
+    <Content Include="WXMain\images\wangningli.jpg" />
+    <Content Include="WXMain\images\zhanqimin.jpg" />
+    <Content Include="WXMain\images\东南大学医学院院长刘乃丰教授.png" />
+    <Content Include="WXMain\images\中国微循环学会理事长詹启敏院士.png" />
+    <Content Include="WXMain\images\中国微循环学会糖尿病和微循环专业委员会主任委员孙子林教授.png" />
+    <Content Include="WXMain\images\北京同仁医院眼科王凤华主任.png" />
+    <Content Include="WXMain\images\糖网病.jpg" />
+    <None Include="Properties\PublishProfiles\PublishConfig.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\card.js" />
+    <Content Include="Scripts\Custom\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\Custom\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\Custom\comb.js" />
+    <Content Include="Scripts\Custom\common.js" />
+    <Content Include="Scripts\Custom\common.search.date.js" />
+    <Content Include="Scripts\Custom\diabetes_eyes_edit_image.js" />
+    <Content Include="Scripts\Custom\diabetic_retinopathy_manager.js" />
+    <Content Include="Scripts\Custom\fsrPMD.js" />
+    <Content Include="Scripts\Custom\getName.js" />
+    <Content Include="Scripts\Custom\ho_index.js" />
+    <Content Include="Scripts\Custom\htmlStr.js" />
+    <Content Include="Scripts\Custom\icheck.js" />
+    <Content Include="Scripts\Custom\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\Custom\jquery.alerts.js" />
+    <Content Include="Scripts\Custom\jquery.colorbox.js" />
+    <Content Include="Scripts\Custom\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Custom\jquery.flexslider-min.js" />
+    <Content Include="Scripts\Custom\jquery.hotkeys.js" />
+    <Content Include="Scripts\Custom\jquery.Huploadify.js" />
+    <Content Include="Scripts\Custom\jquery.Jcrop.js" />
+    <Content Include="Scripts\Custom\jquery.marquee.js" />
+    <Content Include="Scripts\Custom\jquery.shCircleLoader.js" />
+    <Content Include="Scripts\Custom\jquery.sliderPro.min.js" />
+    <Content Include="Scripts\Custom\jquery.validate.extension.js" />
+    <Content Include="Scripts\Custom\lang.js" />
+    <Content Include="Scripts\Custom\layer.js" />
+    <Content Include="Scripts\Custom\myRadio.js" />
+    <Content Include="Scripts\Custom\tips.js" />
+    <Content Include="Scripts\Custom\viewPhoto.js" />
+    <Content Include="Scripts\example.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.base64.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\jweixin-1.0.0.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\weui.css" />
+    <Content Include="Scripts\weui.min.css" />
+    <Content Include="Scripts\weui.min.js" />
+    <Content Include="Scripts\zepto.min.js" />
+    <Content Include="Views\WXMain\images\icon_footer.png" />
+    <Content Include="Views\WXMain\images\icon_footer_link.png" />
+    <Content Include="Views\WXMain\images\icon_intro.png" />
+    <Content Include="Views\WXMain\images\icon_nav_actionSheet.png" />
+    <Content Include="Views\WXMain\images\icon_nav_article.png" />
+    <Content Include="Views\WXMain\images\icon_nav_button.png" />
+    <Content Include="Views\WXMain\images\icon_nav_cell.png" />
+    <Content Include="Views\WXMain\images\icon_nav_dialog.png" />
+    <Content Include="Views\WXMain\images\icon_nav_feedback.png" />
+    <Content Include="Views\WXMain\images\icon_nav_flow.png" />
+    <Content Include="Views\WXMain\images\icon_nav_form.png" />
+    <Content Include="Views\WXMain\images\icon_nav_icons.png" />
+    <Content Include="Views\WXMain\images\icon_nav_layout.png" />
+    <Content Include="Views\WXMain\images\icon_nav_msg.png" />
+    <Content Include="Views\WXMain\images\icon_nav_nav.png" />
+    <Content Include="Views\WXMain\images\icon_nav_panel.png" />
+    <Content Include="Views\WXMain\images\icon_nav_progress.png" />
+    <Content Include="Views\WXMain\images\icon_nav_search.png" />
+    <Content Include="Views\WXMain\images\icon_nav_search_bar.png" />
+    <Content Include="Views\WXMain\images\icon_nav_special.png" />
+    <Content Include="Views\WXMain\images\icon_nav_tab.png" />
+    <Content Include="Views\WXMain\images\icon_nav_toast.png" />
+    <Content Include="Views\WXMain\images\icon_nav_z-index.png" />
+    <Content Include="Views\WXMain\images\icon_nav_zindex.png" />
+    <Content Include="Views\WXMain\images\icon_tabbar.png" />
+    <Content Include="Views\WXMain\images\layers\content.png" />
+    <Content Include="Views\WXMain\images\layers\navigation.png" />
+    <Content Include="Views\WXMain\images\layers\popout.png" />
+    <Content Include="Views\WXMain\images\layers\transparent.gif" />
+    <Content Include="Views\WXMain\images\logo.png" />
+    <Content Include="Views\WXMain\images\pic_160.png" />
+    <Content Include="Views\WXMain\images\pic_article.png" />
+    <Content Include="Views\WXMain\images\vcode.jpg" />
+    <Content Include="Views\WXMain\images\中国糖网筛防工程.jpg" />
+    <Content Include="Views\WXMain\snapshot\actionSheet.png" />
+    <Content Include="Views\WXMain\snapshot\button.png" />
+    <Content Include="Views\WXMain\snapshot\cell.png" />
+    <Content Include="Views\WXMain\snapshot\dialog1.png" />
+    <Content Include="Views\WXMain\snapshot\dialog2.png" />
+    <Content Include="Views\WXMain\snapshot\grid.png" />
+    <Content Include="Views\WXMain\snapshot\icons.png" />
+    <Content Include="Views\WXMain\snapshot\progress.png" />
+    <Content Include="Views\WXMain\snapshot\qrcode.png" />
+    <Content Include="Views\WXMain\snapshot\result.png" />
+    <Content Include="Views\WXMain\snapshot\text.png" />
+    <Content Include="Views\WXMain\snapshot\toast1.png" />
+    <Content Include="Views\WXMain\snapshot\toast2.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\BasicApi.cs" />
+    <Compile Include="Common\CommonMethod.cs" />
+    <Compile Include="Common\CreateMenu.cs" />
+    <Compile Include="Common\messageHelp.cs" />
+    <Compile Include="Common\ResponseMessage.cs" />
+    <Compile Include="Common\SQLHelper.cs" />
+    <Compile Include="Common\WxXmlModel.cs" />
+    <Compile Include="Controllers\WXResponseMessage.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HandlerWX.ashx.cs">
+      <DependentUpon>HandlerWX.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Views\Shared\_LayoutNull.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="FileUpload\Sources\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WZAutoEyeDAL\WZAutoEyeDAL.csproj">
+      <Project>{a75ad562-8e9e-4404-9dbc-b4d952da5104}</Project>
+      <Name>WZAutoEyeDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZAutoEyeModel\WZAutoEyeModel.csproj">
+      <Project>{cf46ad97-3f04-4575-9a57-9eba5d864a61}</Project>
+      <Name>WZAutoEyeModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WZAutoEyeUtility\WZAutoEyeUtility.csproj">
+      <Project>{e8f01fca-1ce7-4929-a05c-f3194e3e0e85}</Project>
+      <Name>WZAutoEyeUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>29181</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:25328/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

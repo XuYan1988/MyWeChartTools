@@ -1,0 +1,87 @@
+h2 {
+	margin-top: 0px !important;
+}
+td {
+	padding: 0px !important;
+}
+.table {
+	margin-bottom: 0px;
+}
+.tw-font-color {
+	margin-top: 0px; page-break-after: always;
+}
+.print-number {
+	float: left;
+}
+.print-zhanwei {
+	float: left;
+}
+.print-date {
+	float: left;
+}
+.print-name {
+	float: left;
+}
+.print-sex {
+	float: left;
+}
+.print-age {
+	float: left;
+}
+.print-suggur {
+	float: left;
+}
+.print-pressure {
+	float: left;
+}
+.print-weight {
+	float: left;
+}
+.print-zhanwei {
+	display: none;
+}
+.print-date {
+	width: 50%; border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: solid;
+}
+.print-number {
+	width: 50%; border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: solid;
+}
+.print-boder {
+	border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: solid;
+}
+.print-boder.table {
+	margin-bottom: 5px;
+}
+.print-name {
+	width: 23.32%;
+}
+.print-sex {
+	width: 12.44%;
+}
+.print-age {
+	width: 12.44%;
+}
+.print-suggur {
+	width: 18.35%;
+}
+.print-pressure {
+	width: 17.88%;
+}
+.print-weight {
+	width: 15.55%;
+}
+.text-right {
+	text-align: right;
+}
+.print-main-img {
+	width: 100%; text-align: center; margin-top: 2px; float: left;
+}
+.print-img-size {
+	width: 400px; max-height: 300px;
+}
+.print-canvas-div {
+	margin: -100px 0px 0px; width: 100px; height: 100px; text-align: right; float: right;
+}
+.table > tbody > tr > td {
+	text-align: right; border-top-color: currentColor; border-top-width: medium; border-top-style: none;
+}

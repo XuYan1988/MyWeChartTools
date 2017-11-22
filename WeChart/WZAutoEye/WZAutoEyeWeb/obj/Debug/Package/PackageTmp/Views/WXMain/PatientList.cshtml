@@ -1,0 +1,445 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("成员管理");
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>成员管理</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+    @*<link rel="stylesheet" href="http://cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">*@
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+
+            <div class="page__bd">
+                    <div class="weui-cells__title">
+                        成员管理
+                        @*<a href="javascript:;" id="showIOSActionSheet"  class="weui-btn weui-btn_mini weui-btn_primary">排序</a>*@
+                    </div>
+                <div class="weui-cells__title" style="color:black;text-align:center">
+                    <a href="javascript:;" id="ascendTime" class="weui-btn weui-btn_mini weui-btn_primary" onclick="ascendTime();" style="margin:auto">按时间↓</a>
+                    <a href="javascript:;" id="ascendAge" class="weui-btn weui-btn_mini weui-btn_primary" onclick="ascendAge();" style="margin:auto">按年龄↓</a>
+                    <a href="javascript:;" id="removeReport" class="weui-btn weui-btn_mini weui-btn_primary" onclick="isRemoveReport();" style="margin:auto">解绑管理</a>
+                    
+                </div>
+
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+                    <div class="weui-cells" id="maincontent" style="margin-top:0px;">
+
+                    </div>
+                </div>
+
+
+                </div>
+            <!--BEGIN actionSheet-->
+            <div>
+                @*<div class="weui-mask" id="iosMask" style="display: none"></div>
+                <div class="weui-actionsheet" id="iosActionsheet" style="display: none">
+                    <div class="weui-actionsheet__title">
+                        <p class="weui-actionsheet__title-text">选择排序方式</p>
+                    </div>
+                    <div class="weui-actionsheet__menu">
+                        <div id="ascendAge" class="weui-actionsheet__cell" onclick="ascendAge();">按姓名降序</div>
+                        <div id="ascendTime" class="weui-actionsheet__cell" onclick="ascendTime();">按时间升序</div>
+                    </div>
+                    <div class="weui-actionsheet__action">
+                        <div class="weui-actionsheet__cell" id="iosActionsheetCancel">取消</div>
+                    </div>
+                </div>*@
+            </div>
+
+            <!--END actionSheet-->
+
+        </div>
+        
+
+        <div id="loadmore" class="weui-loadmore" style="display:none">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="nomore" class="weui-loadmore weui-loadmore_line" style="display:none">
+            <span class="weui-loadmore__tips">已无更多</span>
+        </div>
+        <div class="js_dialog" id="iosDialog2" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__bd">请先扫码添加成员</div>
+                <div class="weui-dialog__ft">
+                    <a href="" onclick="WeixinJSBridge.call('closeWindow');" class="weui-dialog__btn weui-dialog__btn_primary">知道了</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="js_dialog" id="noChoose" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">请选择需要解除管理的成员</strong></div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" onclick="noChoseClick()">知道了</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="js_dialog" id="isRemove" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">确定对已选择的成员解除管理吗？</strong></div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default" onclick="isRemoveClick()">取消</a>
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" onclick="removeReport();">确定</a>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </script>
+
+
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+   @*<script src="../../Scripts/jquery.min.js"></script>*@
+    <script src="../../Scripts/jquery-weui.min.js"></script>
+
+</body>
+</html>
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+       // WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+</script>
+<script type="text/javascript">
+    var StaticPageCount = 10;//页面显示条数
+    var pageIndex = 0;//当前页面数   第0页为初始页面
+    var count = 0; //返回的记录数
+    var remainder = 0;
+
+    var time = 2;//时间排序参数
+    var Age = 1;//年龄排序参数
+
+    // ios
+    $(function () {
+        var $iosActionsheet = $('#iosActionsheet');
+        var $iosMask = $('#iosMask');
+
+        function hideActionSheet() {
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+        }
+        $iosMask.on('click', hideActionSheet);
+        $('#iosActionsheetCancel').on('click', hideActionSheet);
+        //$("#showIOSActionSheet").on("click", function () {
+        //    $iosActionsheet.addClass('weui-actionsheet_toggle');
+        //    $iosMask.fadeIn(200);
+        //});
+    });
+
+    $(function () {
+        if ('@ViewBag.State' == '1') {
+            var $iosDialog2 = $('#iosDialog2');
+            $iosDialog2.fadeIn(200);
+        }
+
+        PatienttListBind();
+    });
+    //加载更多
+    $(function () {
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function () {
+            var loadmore = document.getElementById("loadmore");
+            var nomore = document.getElementById("nomore");
+            remainder = count % StaticPageCount;
+            if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                setTimeout(function () {
+                    loadmore.style.display = "none";
+                    nomore.style.display = "";
+                }, 1500);   //模拟延迟
+                return;
+            }
+            else {
+                loadmore.style.display = "";
+            }
+            if (loading) return;
+            var flag = false;
+            loading = true;
+            setTimeout(function () {
+                PatienttListBind();
+                loading = false;
+            }, 1500);   //模拟延迟
+            loadmore.style.display = "none";
+        });
+    })
+    //绑定数据
+    function PatienttListBind() {
+        var openid = '@ViewBag.OpenID';
+        $.post('@Url.Action("GetPatientList", "WXMain")',
+                {
+                    openid: openid,
+                    time: time,
+                    Age: Age,
+                    pageIndex: pageIndex,
+                    pageCount: StaticPageCount,
+                },
+                function (data) {
+                    var jsonData = JSON.parse(data.JsonData);
+                    count = data.Total;
+                    var htmlData = "";
+                    
+                    if (jsonData != null && jsonData.length > 0) {
+                        for (var i = 0; i < jsonData.length; i++) {
+
+                            htmlData += "<label class=\"weui-cell weui-check__label\" for=\"s" + jsonData[i].PatientID + "\">";
+                            htmlData += "<div class=\"weui-cell__hd\">";
+                            htmlData += "<input type=\"checkbox\" class=\"weui-check\" name=\"checkbox1\" id=\"s" + jsonData[i].PatientID + "\"  value=" + jsonData[i].PatientID + " />";
+                            htmlData += "<i class=\"weui-icon-checked\"></i>";
+                            htmlData += "</div>";
+
+                            htmlData += "<a style=\"color:black;\" class=\"\" href=\"/WXMain/ReportList?PatientID=" + jsonData[i].PatientID + "&openid=" + openid + "\">";
+                            
+                            htmlData += "<div class=\"weui-cell__bd\">";
+                            htmlData += "<p>姓名:" + jsonData[i].PatientNM + "&nbsp&nbsp年龄: " + jsonData[i].Age + "</p>";
+                            htmlData += "<p>最近就诊时间:" + jsonData[i].CheckTime + "</p>";
+                            htmlData += "</div>";
+                            htmlData+="<div class=\"weui-cell__ft\"></div>";
+                            htmlData += " </a>";
+                            htmlData += "</label>";
+
+                            $('#maincontent').append(htmlData);
+                            htmlData = "";
+                        }
+                    }
+                    else
+                    {
+                        var $iosDialog2 = $('#iosDialog2');
+                        $iosDialog2.fadeIn(200);
+                    }
+                    pageIndex = pageIndex + 1;
+                    remainder = count % StaticPageCount;
+
+                    if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                        loadmore.style.display = "none";
+                        nomore.style.display = "";
+                        return;
+                    }
+                });
+    }
+    function ascendAge() {
+
+        $("#ascendAge").attr("onclick", "");
+        $("#ascendTime").attr("onclick", "");
+        loadmore.style.display = "";
+        nomore.style.display = "none";
+        $('#maincontent').empty();
+        setTimeout(function () {
+            $("#ascendAge").attr("onclick", "ascendAge();");
+            $("#ascendTime").attr("onclick", "ascendTime();");
+        }, 2000);   //模拟延迟
+        setTimeout(function () {
+            if (Age == 0) {
+                Age = 1;//姓名排序参数
+                $('#ascendAge').html('按年龄↓');
+            }
+            else {
+                Age = 0;//姓名排序参数
+                $('#ascendAge').html('按年龄↑');
+            }
+
+            var $iosMask = $('#iosMask');
+            var $iosActionsheet = $('#iosActionsheet');
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+
+            time = 2;//时间排序参数
+            pageIndex = 0;
+            loadmore.style.display = "none";
+            nomore.style.display = "none";
+            $('#maincontent').empty();
+            PatienttListBind();
+        }, 1000);   //模拟延迟
+
+    }
+    function ascendTime() {
+        $("#ascendAge").attr("onclick", "");
+        $("#ascendTime").attr("onclick", "");
+        loadmore.style.display = "";
+        nomore.style.display = "none";
+        $('#maincontent').empty();
+        setTimeout(function () {
+            $("#ascendAge").attr("onclick", "ascendAge();");
+            $("#ascendTime").attr("onclick", "ascendTime();");
+        }, 2000);   //模拟延迟
+
+        setTimeout(function () {
+            if (time == 0) {
+                time = 1;//姓名排序参数
+                $('#ascendTime').html('按时间↓');
+            }
+            else {
+                time = 0;//姓名排序参数
+                $('#ascendTime').html('按时间↑');
+            }
+
+            var $iosMask = $('#iosMask');
+            var $iosActionsheet = $('#iosActionsheet');
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+
+            Age = 2;//姓名排序参数
+            pageIndex = 0;
+            loadmore.style.display = "none";
+            nomore.style.display = "none";
+            $('#maincontent').empty();
+            PatienttListBind();
+        }, 1000);   //模拟延迟
+    }
+
+    function isRemoveReport() {
+
+        var obj = document.getElementsByName('checkbox1');
+        var patientid = '';
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].checked) {
+                patientid += obj[i].value + ','; //如果选中，将value添加到变量s中 
+            }
+        }
+        if (patientid == "") {
+            var noChoose = $('#noChoose');
+            noChoose.fadeIn(200);
+            return;
+            //
+        }
+
+
+        var isRemove = $('#isRemove');
+        isRemove.fadeIn(200);
+    }
+
+
+    //解绑功能
+    function removeReport() {
+        //获取checkbox所有值
+        var isRemove = document.getElementById("isRemove");
+        isRemove.style.display = "none";
+        var obj = document.getElementsByName('checkbox1');
+        var patientid = '';
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].checked) {
+                patientid += obj[i].value + ','; //如果选中，将value添加到变量s中 
+            }
+        }
+        if (patientid == "") {
+            var noChoose = $('#noChoose');
+            noChoose.fadeIn(200);
+            return;
+            //
+        }
+            //post请求
+            $.post('@Url.Action("RemoveReport", "WXMain")',
+                    {
+                        patientid: patientid,
+                    },
+                    function (data) {
+                        if (data == 1) {
+                            //成功
+                            //location.reload();
+                            loadmore.style.display = "";
+                            nomore.style.display = "none";
+                            $('#maincontent').empty();
+                            setTimeout(function () {
+                                pageIndex = 0;
+                                loadmore.style.display = "none";
+                                nomore.style.display = "none";
+                                $('#maincontent').empty();
+                                PatienttListBind();
+                            }, 1000);   //模拟延迟
+                        }
+                        else {
+                            //失败
+                            alert("绑定失败");
+                            return;
+                        }
+                    });
+        
+    }
+
+    // toast
+    $(function(){
+        var $toast = $('#toast');
+        $('#showToast').on('click', function(){
+            if ($toast.css('display') != 'none') return;
+
+            $toast.fadeIn(100);
+            setTimeout(function () {
+                $toast.fadeOut(100);
+            }, 2000);
+        });
+    });
+
+    // loading
+    $(function(){
+        var $loadingToast = $('#loadingToast');
+        $('#showLoadingToast').on('click', function(){
+            if ($loadingToast.css('display') != 'none') return;
+
+            $loadingToast.fadeIn(100);
+            setTimeout(function () {
+                $loadingToast.fadeOut(100);
+            }, 2000);
+        });
+    });
+
+
+    function noChoseClick() {
+        var noChoose = document.getElementById("noChoose");
+        noChoose.style.display = "none";
+    }
+    function isRemoveClick() {
+        var isRemove = document.getElementById("isRemove");
+        isRemove.style.display = "none";
+    }
+
+    
+</script>

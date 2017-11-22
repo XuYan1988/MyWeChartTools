@@ -1,0 +1,206 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("报告管理");
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>糖网筛防</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+    @*<link rel="stylesheet" href="http://cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">*@
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+            <div class="page__bd">
+                <div id="patientName" class="weui-cells__title" style="color:black;text-align:center;font-size:20px">
+                    @ViewBag.HospitalName
+                </div>
+                    <div class="weui-cell weui-cell_vcode" style="border: 0.5px solid #E0E0E0">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">选择时间:</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="datetimenow" class="weui-input" type="date" value="" />
+                        </div>
+                        <div class="weui-cell__ft">
+                            <button id="ascendTime" class="weui-vcode-btn" onclick="ascendTime()">&nbsp查 &nbsp 看&nbsp</button>
+                        </div>
+                    </div>
+
+                <div class="weui-cells" style="margin-top:0px">
+                </div>
+            </div>
+        </div>
+        <div id="loadmore" class="weui-loadmore" style="display:none">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="nomore" class="weui-loadmore weui-loadmore_line" style="display:none">
+            <span class="weui-loadmore__tips">已无更多</span>
+        </div>
+    </script>
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+    @*<script src="../../Scripts/jquery.min.js"></script>*@
+    <script src="../../Scripts/jquery-weui.min.js"></script>
+
+
+</body>
+
+</html>
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+        //WeixinJSBridge.call('hideOptionMenu');
+    }
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+    $(function () {
+        ReportListBind();
+    });
+</script>
+<script type="text/javascript">
+    var StaticPageCount = 10;//页面显示条数
+    var pageIndex = 0;//当前页面数   第0页为初始页面
+    var count = 0; //返回的记录数
+    var remainder = 0;
+
+    //加载更多
+    $(function () {
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function () {
+            var loadmore = document.getElementById("loadmore");
+            var nomore = document.getElementById("nomore");
+            remainder = count % StaticPageCount;
+            if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                setTimeout(function () {
+                    loadmore.style.display = "none";
+                    nomore.style.display = "";
+                }, 1500);   //模拟延迟
+                return;
+            }
+            else {
+                loadmore.style.display = "";
+            }
+            if (loading) return;
+            var flag = false;
+            loading = true;
+            setTimeout(function () {
+                ReportListBind();
+                loading = false;
+            }, 1500);   //模拟延迟
+            loadmore.style.display = "none";
+        });
+    })
+    //绑定数据
+    function ReportListBind() {
+        var openid = '@ViewBag.OpenID';
+        var time = $("#datetimenow").val();
+        if (time == "") {
+            $("#datetimenow").val('@ViewBag.DateTimeNow');
+        }
+        $.post('@Url.Action("GetReportListForHos", "WXMain")',
+                {
+                    openid: openid,
+                    time: time,
+                    pageIndex: pageIndex,
+                    pageCount: StaticPageCount,
+                },
+                function (data) {
+                    var jsonData = JSON.parse(data.JsonData);
+                    count = data.Total;
+                    var htmlData = "";
+                    var checkTime = "";
+                    if (jsonData != null && jsonData.length > 0) {
+                        for (var i = 0; i < jsonData.length; i++) {
+                            if (jsonData[i].StatusCD == 'Status-7') {
+                                htmlData += "<a class=\"weui-cell weui-cell_access\" href=\"/WXMain/ReportViewForWeChat?EyeImageID=" + jsonData[i].EyeImageID + "\">";
+                            }
+                            else {
+                                htmlData += "<div class=\"weui-cell\" style=\"color:#9D9D9D\">";
+                            }
+                            htmlData += "<div class=\"weui-cell__bd\">";
+                            htmlData += "<p>姓名: " + jsonData[i].PatientNM + "&nbsp&nbsp年龄: " + jsonData[i].Age + "</p>";
+                            if (jsonData[i].CheckTime == null || jsonData[i].CheckTime == "") {
+                                htmlData += "<p>就诊时间: 暂无记录</p>";
+                            }
+                            else {
+                                htmlData += "<p>就诊时间: " + jsonData[i].hour + "</p>";
+                            }
+                            htmlData += "</div>";
+                            if (jsonData[i].StatusCD == 'Status-7') {
+                                htmlData += "<div class=\"weui-cell__ft\"></div></a>";
+                            }
+                            else {
+                                htmlData += "<div class=\"weui-cell__ft\">处理中</div></div>";
+                            }
+                            $('.weui-cells').append(htmlData);
+                            htmlData = "";
+                        }
+                    }
+                    else {
+                        loadmore.style.display = "none";
+                        nomore.style.display = "";
+                    }
+                    pageIndex = pageIndex + 1;
+                    remainder = count % StaticPageCount;
+
+                    if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                        loadmore.style.display = "none";
+                        nomore.style.display = "";
+                        return;
+                    }
+                });
+    }
+    //根据日期查看
+    function ascendTime() {
+        $("#ascendTime").attr("onclick", "");
+        loadmore.style.display = "";
+        nomore.style.display = "none";
+        $('.weui-cells').empty();
+        setTimeout(function () {
+            $("#ascendTime").attr("onclick", "ascendTime();");
+        }, 2000);   //模拟延迟
+
+        setTimeout(function () {
+            pageIndex = 0;
+            loadmore.style.display = "none";
+            nomore.style.display = "none";
+            ReportListBind();
+        },1000);   //模拟延迟
+    }
+</script>
+

@@ -1,0 +1,1502 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("报告查看");
+    Layout = "~/Views/Shared/_LayoutNull.cshtml";
+}
+@Styles.Render("~/Content/Custom/fine-uploader.css")
+@Styles.Render("~/Content/Custom/Huploadify.css")
+@Scripts.Render("~/Scripts/Custom/jquery.Huploadify.js")
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+        //WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+</script>
+<style type="text/css">
+    body {
+        font-family: ‘伪宋体’;
+        color: black;
+        width: 100%;
+    }
+</style>
+<style type="text/css">
+    * {
+        font-size: 8px;
+    }
+</style>
+<script type="text/javascript">
+        @{
+            WZAutoEye.WZAutoEyeMVC.DAL.MUserDAL mUserdal = new WZAutoEye.WZAutoEyeMVC.DAL.MUserDAL();
+            WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageAttachmentDAL mEyeImageAttachmentDal = new WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageAttachmentDAL();
+            WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageBleedingDAL mEyeImageBleedingdal = new WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageBleedingDAL();
+            //2016-09-18 zzc 青光眼
+            EGlaucomaReadREC eGlaucomaReadRECdal = new EGlaucomaReadREC();
+            MEyeImageBleeding meyeImagebleeding = new MEyeImageBleeding();
+            MEyeImageAttachment bleeing = new MEyeImageAttachment();
+            List<MEyeImageAttachment> originalImageListOne = new List<MEyeImageAttachment>();
+            string sysLanguage = CookieHelper.Read("H-Language");
+            if (sysLanguage == "zh-cn")
+            {
+                @Html.Raw("var language = 'zh-CN';");
+                @Html.Raw("var format = 'yyyy-mm-dd';");
+            }
+            else if (sysLanguage == "en-us")
+            {
+                @Html.Raw("var language = 'en';");
+                @Html.Raw("var format = 'dd-mm-yyyy';");
+            }
+        }
+    $(function () {
+        var statusCD = "@ViewBag.status";
+        if (statusCD == "1") {
+            @*jAlert("该报告尚未生成！", '@CommonResourceManager.Current.GetString("提示")');*@
+            window.location.href = "/WXMain/Error?info=003";
+            $('#status').css("display", "none");
+            return false;
+        }
+        var url = window.location.href;
+        $('#url').html(url);
+        var ProcessType = "@ViewBag.ProcessType";
+        if (ProcessType != "1") {
+
+            $('#AutoRead').css("display", "none");
+        } else {
+            $('#ManualRead').css("display", "none");
+        }
+        // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+        var useragent = navigator.userAgent;
+        var deviceWidth = document.documentElement.clientWidth;
+        var deviceheight = document.documentElement.clientHeight;
+
+        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+            // 这里警告框会阻塞当前页面继续加载
+            // alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+            //// 以下代码是用javascript强行关闭当前页面
+            //var opened = window.open('about:blank', '_self');
+            //opened.opener = null;
+            //opened.close();
+
+
+
+            if (deviceWidth <= 800) {
+                $("#DivInfo").css({ "font-size": "0.7rem" });
+                if ('@ViewBag.ProcessType' == '1') {
+                    $('#viewport')[0].content = 'width=device-width, initial-scale=0.8';
+                } else {
+                    $('#viewport')[0].content = 'width=device-width, initial-scale=0.9';
+                }
+            } else {
+                $("#DivInfo").css({ "font-size": "0.9rem" });
+            }
+
+
+        } else {
+            if (deviceWidth <= 800) {
+                $("#DivInfo").css({ "font-size": "0.3rem" });
+                if ('@ViewBag.ProcessType' == '1') {
+                    $('#viewport')[0].content = 'width=device-width, initial-scale=0.8';
+                } else {
+                    $('#viewport')[0].content = 'width=device-width, initial-scale=0.9';
+                }
+            }
+
+        }
+
+    });
+    function FinishAdd(data) {
+        if (data.RetCode == "10011") {
+            jAlert(data.RetDesc, '@CommonResourceManager.Current.GetString("提示")');
+        } else {
+            jAlert(data.RetDesc, '@CommonResourceManager.Current.GetString("提示")');
+        }
+    }
+
+    window.onload = function () {
+        if ($('#DivInfo').get(0).offsetHeight < document.documentElement.clientHeight) {
+            $("#DivInfo").css({ "height": "" + document.documentElement.clientHeight + "px" });
+        }
+
+    }
+
+</script>
+<head>
+    <title>报告查看</title>
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+</head>
+<div style="width:100%;background-color: white;height: 100%">
+    <div id="DivInfo" style="width:97%; ">
+        <div style="margin-left: 5%" id="status">
+            @if (ViewBag.ProcessType == "2")
+            {
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="border: none; height: 30px">
+                                <h3 align="center">
+                                    @CommonResourceManager.Current.GetString("眼底图像筛查报告")
+                                </h3>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                foreach (OneKeyPrintVM item in ViewBag.MEyeImageList)
+                {
+                   
+                    <table style="margin-bottom:0px; " class="table">
+                        <tbody>
+                            <tr style=" border-top-width:0px;">
+                                <td style="width:auto; border-top-width:0px;">
+                                    @CommonResourceManager.Current.GetString("编号")：
+                                    @if (string.IsNullOrEmpty(item.ImageCode))
+                                    {
+                                        @CommonResourceManager.Current.GetString("未输入")
+                                    }
+                                    else
+                                    {
+                                        @item.ImageCode
+                                    }
+                                </td>
+                                <td class="" style="width:auto;border-top-width:0px;">@CommonResourceManager.Current.GetString("姓名")：@item.PatientNM</td>
+                                @if (CookieHelper.Read("H-Language").Equals("zh-cn"))
+                                {
+                                    <td class="" style="width:auto;border-top-width:0px;">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc</td>
+                                }
+                                else
+                                {
+                                    <td class="" style="width:auto;border-top-width:0px;">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc_EN</td>
+                                }
+                                <td style="width:auto;text-align:left; border-top-width:0px;">
+                                    @CommonResourceManager.Current.GetString("日期")：
+                                    @if (item.UploadTime != null)
+                                    {
+                                        @Convert.ToDateTime(item.UploadTime).ToString("yyyy-MM-dd")
+                                    }
+                                </td>
+
+                            </tr>
+                            
+
+                            
+                        </tbody>
+                    </table>
+    <table style="margin-bottom:0px;" class="table">
+        <tbody>
+            <tr style="border-top:1px solid #e9e1e1;">
+                <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("年龄")：@item.Age</td>
+                @if (!String.IsNullOrEmpty(item.Weight.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("体重")：@item.Weight &nbsp;kg</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("体重")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+                @if (!String.IsNullOrEmpty(item.BloodSugar.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐前血糖")：@item.BloodSugar &nbsp;mmol/L</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐前血糖")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+                @if (!String.IsNullOrEmpty(item.PPBloodSugar.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐后血糖")：@item.PPBloodSugar &nbsp;mmol/L</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐后血糖")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+            </tr>
+
+        </tbody>
+    </table>
+    <table style="margin-bottom:0px;" class="table">
+        <tbody>
+            <tr>
+
+
+                @if (!String.IsNullOrEmpty(item.IntraOcularTensionLeft.ToString()))
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("眼压(左)")：@item.IntraOcularTensionLeft &nbsp;mmHg</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("眼压(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+                @if (!String.IsNullOrEmpty(item.VisionLeft.ToString()))
+                {
+                    <td class="" style="">@CommonResourceManager.Current.GetString("视力(左)")： @Convert.ToDouble(item.VisionLeft).ToString("f1")</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+                @if (!String.IsNullOrEmpty(item.CorrectedVisionLeft.ToString()))
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("矫正视力(左)")：@Convert.ToDouble(item.CorrectedVisionLeft).ToString("f1")</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("矫正视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+
+            </tr>
+            <tr>
+                @if (!String.IsNullOrEmpty(item.IntraOcularTensionRight.ToString()))
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("眼压(右)")：@item.IntraOcularTensionRight &nbsp;mmHg</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("眼压(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+                @if (!String.IsNullOrEmpty(item.VisionRight.ToString()))
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("视力(右)")：@Convert.ToDouble(item.VisionRight).ToString("f1")</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+                @if (!String.IsNullOrEmpty(item.CorrectedVisionRight.ToString()))
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("矫正视力(右)")：@Convert.ToDouble(item.CorrectedVisionRight).ToString("f1")</td>
+                }
+                else
+                {
+                    <td class="">@CommonResourceManager.Current.GetString("矫正视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+            </tr>
+
+        </tbody>
+    </table>
+                }
+                if (ViewBag.EyeImageAttachmentLeft != null)
+                {
+                    int count_one = 1;
+                    int counts_one = 1;
+                    foreach (OneKeyPrintVM mEyeImageAttachments in @ViewBag.EyeImageAttachmentLeft)
+                    {
+                        if (counts_one == 1)
+                        {
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;" colspan="5">
+                                            @foreach (OneKeyPrintVM mEyeImageAttachment in @ViewBag.EyeImageAttachmentLeft)
+                                            {
+                                                //自动模式下图片有2张/手动模式下图片有1张
+                                                if (ViewBag.count == 2 || ViewBag.counts == 1)
+                                                {
+                                                    if (count_one == 1 || count_one == 2)
+                                                    {
+                                                        <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(mEyeImageAttachment.EIAttachmentPath)">
+                                                            <img class="img-rounded" src="@Url.Content(mEyeImageAttachment.EIAttachmentPath)" style="width:40%; cursor: pointer;" />
+                                                        </a>
+                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    //自动模式下图片有4张/手动模式下图片有2张
+                                                    if (count_one == 1 || count_one == 3)
+                                                    {
+                                                        <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(mEyeImageAttachment.EIAttachmentPath)">
+                                                        <img class="img-rounded" src="@Url.Content(mEyeImageAttachment.EIAttachmentPath)" style="width:40%; cursor: pointer;" />
+                                                        </a>
+                                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    }
+                                                }
+
+                                                count_one++;
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        @if (mEyeImageAttachments.EITypeV == "MatlabWhiteBG_LeftEye" || mEyeImageAttachments.EITypeV == "MatlabCommonWhite_LeftEye")
+                                        {
+                                            <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("左")</td>
+                                        }
+                                        else if (mEyeImageAttachments.EITypeV == "MatlabWhiteBG_RightEye" || mEyeImageAttachments.EITypeV == "MatlabCommonWhite_RightEye")
+                                        {
+                                            <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("右")</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("不确定")</td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                        counts_one++;
+                    }
+                    if (ViewBag.BleedingLeft != null && ViewBag.ProcessType != "1")
+                    {
+                        foreach (OneKeyPrintVM itemLeft in ViewBag.BleedingLeft)
+                        {
+                            <table style="margin-bottom:0px;" class="table" id="ManualRead">
+                                <tbody>
+                                    <tr>
+                                        <td class="">@CommonResourceManager.Current.GetString("所见")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("类别")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("数量(个)")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("总面积")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("最大面积")</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class=""></td>
+                                        <td class="">@CommonResourceManager.Current.GetString("出血(蓝)")</td>
+                                        @if (ViewBag.NumType != true)
+                                        {
+                                            if (Convert.ToInt32(itemLeft.BleedingAmount) < 6)
+                                            {
+                                                <td class="">-</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.BleedingAmount) < 16)
+                                            {
+                                                <td class="">+</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.BleedingAmount) < 26)
+                                            {
+                                                <td class="">++</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="">+++</td>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <td class="">@itemLeft.BleedingAmount</td>
+                                        }
+                                        <td class="">@itemLeft.BleedingArea</td>
+                                        <td class="">@itemLeft.BleedingMostArea</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""></td>
+                                        <td class="">@CommonResourceManager.Current.GetString("渗出(绿)")</td>
+                                        @if (ViewBag.NumType != true)
+                                        {
+                                            if (Convert.ToInt32(itemLeft.ExudeAmount) < 6)
+                                            {
+                                                <td class="">-</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.ExudeAmount) < 16)
+                                            {
+                                                <td class="">+</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.ExudeAmount) < 26)
+                                            {
+                                                <td class="">++</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="">+++</td>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <td class="">@itemLeft.ExudeAmount</td>
+                                        }
+                                        <td class="">@itemLeft.ExudeArea</td>
+                                        <td class="">@itemLeft.ExudeMostArea</td>
+                                    </tr>
+                                    @*<tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>*@
+
+                                </tbody>
+                            </table>
+                        }
+                    }
+                    int count_two = 1;
+                    int counts_two = 1;
+                    //第二张图
+                    foreach (OneKeyPrintVM mEyeImageAttachments in @ViewBag.EyeImageAttachmentLeft)
+                    {
+                        if (counts_two == 2)
+                        {
+                            //自动模式下图片有4张/手动模式下图片有2张
+                            if (ViewBag.count == 4 || ViewBag.counts == 2)
+                            {
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;" colspan="5">
+                                                @foreach (OneKeyPrintVM mEyeImageAttachment in @ViewBag.EyeImageAttachmentLeft)
+                                                {
+
+                                                    if (count_two == 2 || count_two == 4)
+                                                    {
+                                                        <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(mEyeImageAttachment.EIAttachmentPath)">
+                                                            <img class="img-rounded" src="@Url.Content(mEyeImageAttachment.EIAttachmentPath)" style="width:40%; cursor: pointer;" />
+                                                        </a>
+                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    }
+                                                    count_two++;
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            @if (mEyeImageAttachments.EITypeV == "MatlabWhiteBG_LeftEye" || mEyeImageAttachments.EITypeV == "MatlabCommonWhite_LeftEye")
+                                            {
+                                                <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("左")</td>
+
+                                            }
+                                            else if (mEyeImageAttachments.EITypeV == "MatlabWhiteBG_RightEye" || mEyeImageAttachments.EITypeV == "MatlabCommonWhite_RightEye")
+                                            {
+                                                <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("右")</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 15%" align="left">@CommonResourceManager.Current.GetString("眼睛")： @CommonResourceManager.Current.GetString("不确定")</td>
+
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        counts_two++;
+                    }
+                    if (ViewBag.BleedingLefts != null && ViewBag.ProcessType != "1")
+                    {
+                        foreach (OneKeyPrintVM itemLeft in ViewBag.BleedingLefts)
+                        {
+                            <table style="margin-bottom:0px;" class="table" id="ManualRead">
+                                <tbody>
+                                    <tr>
+                                        <td class="">@CommonResourceManager.Current.GetString("所见")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("类别")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("数量(个)")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("总面积")</td>
+                                        <td class="">@CommonResourceManager.Current.GetString("最大面积")</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class=""></td>
+                                        <td class="">@CommonResourceManager.Current.GetString("出血(蓝)")</td>
+                                        @if (ViewBag.NumType != true)
+                                        {
+                                            if (Convert.ToInt32(itemLeft.BleedingAmount) < 6)
+                                            {
+                                                <td class="">-</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.BleedingAmount) < 16)
+                                            {
+                                                <td class="">+</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.BleedingAmount) < 26)
+                                            {
+                                                <td class="">++</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="">+++</td>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <td class="">@itemLeft.BleedingAmount</td>
+                                        }
+                                        <td class="">@itemLeft.BleedingArea</td>
+                                        <td class="">@itemLeft.BleedingMostArea</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""></td>
+                                        <td class="">@CommonResourceManager.Current.GetString("渗出(绿)")</td>
+                                        @if (ViewBag.NumType != true)
+                                        {
+                                            if (Convert.ToInt32(itemLeft.ExudeAmount) < 6)
+                                            {
+                                                <td class="">-</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.ExudeAmount) < 16)
+                                            {
+                                                <td class="">+</td>
+                                            }
+                                            else if (Convert.ToInt32(itemLeft.ExudeAmount) < 26)
+                                            {
+                                                <td class="">++</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="">+++</td>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <td class="">@itemLeft.ExudeAmount</td>
+                                        }
+                                        <td class="">@itemLeft.ExudeArea</td>
+                                        <td class="">@itemLeft.ExudeMostArea</td>
+                                    </tr>
+                                    @*<tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>*@
+
+                                </tbody>
+                            </table>
+                        }
+                    }
+                }
+
+
+                @Html.Raw(ViewBag.Type)
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+
+                                @CommonResourceManager.Current.GetString("印象：")
+
+                                @{
+                //是印象部分，左右眼换行显示
+                string[] contentList = ViewBag.Suggestion.Split(new string[] { "$^" }, StringSplitOptions.None);
+                string Content = "";
+                for (int i = 0; i < contentList.Length; i++)
+                {
+                    Content += contentList[i] + "<br />";
+                }
+
+                @Html.Raw(Content)
+
+                                }
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @*<table style="margin-bottom:0px;width: 100%" class="table">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: right; padding-right: 1%; padding-top: 10px;">
+                       
+
+                            </td>
+                            <td style="text-align: right;"><img id="img_a" alt="二维码" src="@Url.Content(ViewBag.img)" width="90px" style="padding-right: 10px;" /></td>
+                        </tr>
+                    </tbody>
+                </table>*@
+                <div style="clear:both; word-wrap:break-word;word-break:break-all;">
+                    <table style="margin-bottom:0px;" class="table">
+                        <tr>
+                            <td>
+                                @CommonResourceManager.Current.GetString("此报告只作为健康筛选结果")，@CommonResourceManager.Current.GetString("不作为最终临床诊断")。
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            }
+            else if (ViewBag.ProcessType == "1")
+            {
+                if (ViewBag.MEyeImageList != null)
+                {
+                    foreach (OneKeyPrintVM item in ViewBag.MEyeImageList)
+                    {
+                        //string param = Url.Content("~/Home/ReportView?param=") + Base64Helper.Base64ToString("EyeImageID=" + Convert.ToString(item.EyeImageID), true);
+                        <table style="height:100%; width:100%; " align="center">
+                            <tr>
+                                <td valign="top">
+                                    @{
+                                        <table align="center">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="border: none;">
+                                                        <h4 align="center">
+                                                            @item.HospitalName
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none; ">
+                                                        <h4 align="center">
+                                                            @CommonResourceManager.Current.GetString("眼底图像筛查报告")
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                <!--基本信息开始-->
+
+    <table style="margin-bottom:0px;" class="table">
+        <tbody>
+            <tr style=" border-top-width:0px;">
+                <td style="width:auto; border-top-width:0px;">
+                    @CommonResourceManager.Current.GetString("编号")：
+                    @if (string.IsNullOrEmpty(item.ImageCode))
+                    {
+                        @CommonResourceManager.Current.GetString("未输入")
+                    }
+                    else
+                    {
+                        @item.ImageCode
+                    }
+                </td>
+                <td class="" style="width:auto; border-top-width:0px;">@CommonResourceManager.Current.GetString("姓名")：@item.PatientNM</td>
+                @if (CookieHelper.Read("H-Language").Equals("zh-cn"))
+                {
+                    <td class="" style="width:auto; border-top-width:0px;">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto; border-top-width:0px;">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc_EN</td>
+                }
+                <td style="width:auto;text-align:left; border-top-width:0px;">
+                    @CommonResourceManager.Current.GetString("日期")：
+                    @if (item.UploadTime != null)
+                    {
+                        @Convert.ToDateTime(item.UploadTime).ToString("yyyy-MM-dd")
+                    }
+                </td>
+
+            </tr>
+
+
+
+
+
+
+        </tbody>
+    </table>
+
+    <table style="margin-bottom:0px;" class="table">
+        <tbody>
+            <tr style="border-top:1px solid #e9e1e1;">
+
+                <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("年龄")：@item.Age</td>
+
+
+                @if (!String.IsNullOrEmpty(item.Weight.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("体重")：@item.Weight &nbsp;kg</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("体重")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+                @if (!String.IsNullOrEmpty(item.BloodSugar.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐前血糖")：@item.BloodSugar &nbsp;mmol/L</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐前血糖")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+                @if (!String.IsNullOrEmpty(item.PPBloodSugar.ToString()))
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐后血糖")：@item.PPBloodSugar &nbsp;mmol/L</td>
+                }
+                else
+                {
+                    <td class="" style="width:auto;">@CommonResourceManager.Current.GetString("餐后血糖")：@CommonResourceManager.Current.GetString("未输入")</td>
+                }
+
+
+
+            </tr>
+        </tbody>
+    </table>
+
+                <table style ="margin-bottom:0px;" class="table">
+               <tbody>
+                   <tr style="border-bottom:#e9e1e1 solid 1px;border-top:1px solid #e9e1e1;">
+                       @if (!String.IsNullOrEmpty(item.IntraOcularTensionLeft.ToString()))
+                       {
+                           <td class="" style="  ">@CommonResourceManager.Current.GetString("眼压(左)")：@item.IntraOcularTensionLeft &nbsp;mmHg</td>
+                       }
+                       else
+                       {
+                           <td class="" style="">@CommonResourceManager.Current.GetString("眼压(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+                       @if (!String.IsNullOrEmpty(item.VisionLeft.ToString()))
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("视力(左)")：@Convert.ToDouble(item.VisionLeft).ToString("f1")</td>
+                       }
+                       else
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+                       @if (!String.IsNullOrEmpty(item.CorrectedVisionLeft.ToString()))
+                       {
+                           <td class="" style="text-align: left">@CommonResourceManager.Current.GetString("矫正视力(左)")：@Convert.ToDouble(item.CorrectedVisionLeft).ToString("f1")</td>
+                       }
+                       else
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("矫正视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+                   </tr>
+                   <tr style="border-bottom:#e9e1e1 solid 1px;border-top:1px solid #e9e1e1;">
+                       @if (!String.IsNullOrEmpty(item.IntraOcularTensionRight.ToString()))
+                       {
+                           <td class="" style="">@CommonResourceManager.Current.GetString("眼压(右)")：@item.IntraOcularTensionRight &nbsp;mmHg</td>
+                       }
+                       else
+                       {
+                           <td class="" style="">@CommonResourceManager.Current.GetString("眼压(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+                       @if (!String.IsNullOrEmpty(item.VisionRight.ToString()))
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("视力(右)")：@Convert.ToDouble(item.VisionRight).ToString("f1")</td>
+                       }
+                       else
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+
+                       @if (!String.IsNullOrEmpty(item.CorrectedVisionRight.ToString()))
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("矫正视力(右)")：@Convert.ToDouble(item.CorrectedVisionRight).ToString("f1")</td>
+                       }
+                       else
+                       {
+                           <td class=""  style="text-align: left;">@CommonResourceManager.Current.GetString("矫正视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                       }
+                   </tr>
+
+                </tbody>
+                </table>
+                                <!--基本信息结束-->
+                                        @*左眼图像及所见*@
+                                    List<OneKeyPrintVM> mEyeImageAttachmentVmsLeft = new List<OneKeyPrintVM>();
+                                    mEyeImageAttachmentVmsLeft = mEyeImageAttachmentDal.GetMEyeImageAttachmentLeft(item.EyeImageID.ToString());
+                                <!--左眼图像开始-->
+                        int leftcount = 0;
+
+                        <table align="center" style="">
+                            <tbody>
+                                @foreach (OneKeyPrintVM img in mEyeImageAttachmentVmsLeft)
+                                {
+                                    <tr style="text-align:center;">
+                                        <td>
+                                            <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(img.EIAttachmentPath)">
+
+                                                <img class="img-rounded" src="@Url.Content(img.EIAttachmentPath)" style="width: 40%; cursor: pointer;" />
+                                            </a>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{
+                        WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageBleedingDAL m_EyeImageBleedingdal = new WZAutoEye.WZAutoEyeMVC.DAL.MEyeImageBleedingDAL();
+                                List<OneKeyPrintVM> mEyeImageAttachmentVmLeft = new List<OneKeyPrintVM>();
+                                mEyeImageAttachmentVmLeft = mEyeImageAttachmentDal.GetMEyeImageAttachmentBlackLeft(item.EyeImageID.ToString());
+                                if (mEyeImageAttachmentVmLeft.Count == 1)
+                                {
+                                    MEyeImageBleeding m_eyeImageBleeding = m_EyeImageBleedingdal.GetMeyeImageBleedingVIew(mEyeImageAttachmentVmLeft[0].EIAttachmentID.ToString());
+                                    if (m_eyeImageBleeding != null)
+                                    {
+                                        <table style="border-bottom: 1px solid #fff; width: 100%;">
+                                            <tr style="border-bottom: 1px solid #e9e1e1;">
+                                                <td style="width: 100%;" colspan="3">
+                                                    @if (mEyeImageAttachmentVmLeft[0].EITypeV == "ManualUpload_LeftEye" || mEyeImageAttachmentVmLeft[0].EITypeV == "AutoUpload_LeftEye")
+                                                    {
+                                                        @CommonResourceManager.Current.GetString("左眼")
+                                                    }
+                                                    else if (mEyeImageAttachmentVmLeft[0].EITypeV == "ManualUpload_RightEye" || mEyeImageAttachmentVmLeft[0].EITypeV == "AutoUpload_RightEye")
+                                                    {
+                                                        @CommonResourceManager.Current.GetString("右眼")
+                                                    }
+                                                    else
+                                                    {
+                                                        @CommonResourceManager.Current.GetString("不确定")
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div style="float: left;">
+                                            <table style="border-collapse: separate; border-spacing: 0px 10px;">
+                                                <tr>
+                                                    <td colspan="3">
+                                                        &nbsp;@CommonResourceManager.Current.GetString("影像描述")：
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right">
+                                                        @CommonResourceManager.Current.GetString("C/D")：
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.C_D
+                                                    </td>
+                                                    <td>
+                                                        @CommonResourceManager.Current.GetString("盘沿形态")：@m_eyeImageBleeding.DiskEdgeShape
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        @CommonResourceManager.Current.GetString("A/V值")：
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.A_V
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right">
+                                                        @CommonResourceManager.Current.GetString("黄斑区")：
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.MacularRegion_Hemorrhage@CommonResourceManager.Current.GetString("出血;")
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.MacularRegion_Exudation@CommonResourceManager.Current.GetString("渗出")
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right">
+                                                        @CommonResourceManager.Current.GetString("周边视网膜")：
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.PeripheralRetina_Hemorrhage@CommonResourceManager.Current.GetString("出血;")
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.PeripheralRetina_Exudation@CommonResourceManager.Current.GetString("渗出")
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right">
+                                                        @CommonResourceManager.Current.GetString("其他")：
+                                                    </td>
+                                                    <td>
+                                                        @m_eyeImageBleeding.Other
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < mEyeImageAttachmentVmLeft.Count; i++)
+                                    {
+                                        string clas = "";
+                                        string border = "";
+                                        MEyeImageBleeding m_eyeImageBleeding = m_EyeImageBleedingdal.GetMeyeImageBleedingVIew(mEyeImageAttachmentVmLeft[i].EIAttachmentID.ToString());
+                                        if (m_eyeImageBleeding != null)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                clas = "border-collapse: separate; border-spacing: 0px 10px;";
+                                                border = "border-right:1px solid #e9e1e1;border-top:1px solid #e9e1e1";
+                                            }
+                                            else
+                                            {
+                                                clas = "border-collapse: separate; border-spacing: 0px 10px;";
+                                                border = "border-top:1px solid #e9e1e1";
+                                            }
+                                            <div style="width: 50%; float: left;">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 50%;" colspan="3">
+                                                            @if (mEyeImageAttachmentVmLeft[i].EITypeV == "ManualUpload_LeftEye" || mEyeImageAttachmentVmLeft[i].EITypeV == "AutoUpload_LeftEye")
+                                                            {
+                                                                @CommonResourceManager.Current.GetString("左眼")
+                                                            }
+                                                            else if (mEyeImageAttachmentVmLeft[i].EITypeV == "ManualUpload_RightEye" || mEyeImageAttachmentVmLeft[i].EITypeV == "AutoUpload_RightEye")
+                                                            {
+                                                                @CommonResourceManager.Current.GetString("右眼")
+                                                            }
+                                                            else
+                                                            {
+                                                                @CommonResourceManager.Current.GetString("不确定")
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div style="@border">
+                                                    <table style="@clas">
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                &nbsp;@CommonResourceManager.Current.GetString("影像描述")：
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: right;">
+                                                                @CommonResourceManager.Current.GetString("C/D")：@m_eyeImageBleeding.C_D
+                                                            </td>
+                                                            <td>
+                                                                @CommonResourceManager.Current.GetString("盘沿形态")：@m_eyeImageBleeding.DiskEdgeShape
+                                                            </td>
+                                                            <td>
+                                                                @CommonResourceManager.Current.GetString("A/V值")：@m_eyeImageBleeding.A_V
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: right">
+                                                                @CommonResourceManager.Current.GetString("黄斑区")：
+                                                            </td>
+                                                            <td>@m_eyeImageBleeding.MacularRegion_Hemorrhage@CommonResourceManager.Current.GetString("出血；")</td>
+                                                            <td>
+                                                                @m_eyeImageBleeding.MacularRegion_Exudation@CommonResourceManager.Current.GetString("渗出")
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: right;">
+                                                                @CommonResourceManager.Current.GetString("周边视网膜")：
+                                                            </td>
+                                                            <td>@m_eyeImageBleeding.PeripheralRetina_Hemorrhage@CommonResourceManager.Current.GetString("出血；")</td>
+                                                            <td>
+                                                                @m_eyeImageBleeding.PeripheralRetina_Exudation@CommonResourceManager.Current.GetString("渗出")
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: right">
+                                                                @CommonResourceManager.Current.GetString("其他")：
+                                                            </td>
+                                                            <td colspan="3">
+                                                                @m_eyeImageBleeding.Other
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                    }
+                                    @{
+            <!--印象-->
+                                        <script type="text/javascript">
+    $(function () {
+
+        @*//$('#QRcode').attr('src', '@Url.Content(ViewBag.img)');*@
+    });
+                                        </script>
+                                        @Html.Raw(ViewBag.Type)
+                                //获取当前是人工阅片还是自动阅片
+                                <table align="left" width="100%" style="border-top: 1px solid #e9e1e1;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4">
+                                                @*@CommonResourceManager.Current.GetString("印象：")*@
+                                                <div style="">
+                                                    @CommonResourceManager.Current.GetString("印象：")
+                                                </div>
+                                                @{
+                                //是印象部分，左右眼换行显示
+                                string[] contentList = item.Suggestion.Split(new string[] { "$^" }, StringSplitOptions.None);
+                                string Content = "";
+                                for (int i = 0; i < contentList.Length; i++)
+                                {
+                                    Content += contentList[i] + "<br />";
+                                }
+
+
+
+                                <div style="margin-left: 20px;">
+                                    @Html.Raw(Content)
+                                </div>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="margin-top: 50px;">
+                                                @if (CookieHelper.Read("H-Language").Equals("zh-cn"))
+                                                {
+                                                    @CommonResourceManager.Current.GetString("建议：")@Html.Raw(item.Impression)
+                                                    ;
+                                                }
+                                                else
+                                                {
+                                                    @CommonResourceManager.Current.GetString("建议：")@Html.Raw(item.Impression_EN)
+                                                    ;
+                                                }
+                                            </td>
+                                           
+                                        </tr>
+                                        <tr style="border-top:1px solid #e9e1e1;">
+                                            <td style="vertical-align: middle;text-align: right" colspan="4">
+                                               
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                    }
+                                </td>
+                            </tr>
+
+                        </table>
+                    }
+                }
+            }
+            else
+            {
+                if (ViewBag.MEyeImageList != null)
+                {
+                    foreach (OneKeyPrintVM item in ViewBag.MEyeImageList)
+                    {
+                        //string param = Url.Content("~/Home/ReportView?param=") + Base64Helper.Base64ToString("EyeImageID=" + Convert.ToString(item.EyeImageID), true);
+
+                        <table style="width:100%;background-color:white; margin-top:5px;" align="center">
+                            <tr>
+                                <td valign="top">
+                                    @{
+                                        <table align="center">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="border: none;">
+                                                        <h2 align="center">
+                                                            @item.HospitalName
+                                                        </h2>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none; ">
+                                                        <h2 align="center">
+                                                            @CommonResourceManager.Current.GetString("青光眼视神经分析眼底图像报告")
+                                                        </h2>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                <!--基本信息开始-->
+                                        <label style="float: left; margin-left: 7px">@CommonResourceManager.Current.GetString("编号")：@item.ImageCode</label>
+                        if (!String.IsNullOrEmpty(item.UploadTime.ToString()))
+                        {
+                            <label style="float: right;">@CommonResourceManager.Current.GetString("日期")：@Convert.ToDateTime(item.UploadTime).ToString("yyyy-MM-dd")</label>
+                        }
+                        else
+                        {
+                            <label style="float: right;">@CommonResourceManager.Current.GetString("日期")：</label>
+                        }
+                        <table style="margin-bottom:0px; " class="table">
+                            <tbody>
+                                <tr style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">
+                                    <td class="" style="float:left;">@CommonResourceManager.Current.GetString("姓名")：@item.PatientNM</td>
+                                    @if (CookieHelper.Read("H-Language").Equals("zh-cn"))
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("性别")：@item.CodeDesc_EN</td>
+                                    }
+                                    <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("年龄")：@item.Age</td>
+
+                                    @if (!String.IsNullOrEmpty(item.BloodSugar.ToString()))
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("血糖")：@item.BloodSugar &nbsp;mmol/L</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("血糖")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.Weight.ToString()))
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("体重")：@item.Weight &nbsp;kg</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" style="border-bottom:1px solid #e9e1e1;border-top:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("体重")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                </tr>
+                                <tr style="border-bottom:1px solid #e9e1e1">
+                                    @if (!String.IsNullOrEmpty(item.IntraOcularTensionLeft.ToString()))
+                                    {
+                                        <td class="" style="float:left;">@CommonResourceManager.Current.GetString("眼压(左)")：@item.IntraOcularTensionLeft &nbsp;mmHg</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" style="float:left;border-bottom:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("眼压(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.VisionLeft.ToString()))
+                                    {
+                                        <td class="" colspan="2" style="text-align: center;border-bottom:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("视力(左)")：@Convert.ToDouble(item.VisionLeft).ToString("f1")</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" colspan="2" style="text-align: center;border-bottom:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.CorrectedVisionLeft.ToString()))
+                                    {
+                                        <td class="" colspan="2" style="text-align: center;border-bottom:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("矫正视力(左)")：@Convert.ToDouble(item.CorrectedVisionLeft).ToString("f1")</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" colspan="2" style="text-align: center;border-bottom:1px solid #e9e1e1">@CommonResourceManager.Current.GetString("矫正视力(左)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                </tr>
+                                <tr style="border-bottom:#808080 solid 1px;">
+                                    @if (!String.IsNullOrEmpty(item.IntraOcularTensionRight.ToString()))
+                                    {
+                                        <td class="" style="float:left">@CommonResourceManager.Current.GetString("眼压(右)")：@item.IntraOcularTensionRight &nbsp;mmHg</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" style="float:left">@CommonResourceManager.Current.GetString("眼压(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.VisionRight.ToString()))
+                                    {
+                                        <td class="" colspan="2" style="text-align: center">@CommonResourceManager.Current.GetString("视力(右)")：@Convert.ToDouble(item.VisionRight).ToString("f1")</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" colspan="2" style="text-align: center">@CommonResourceManager.Current.GetString("视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+
+                                    @if (!String.IsNullOrEmpty(item.CorrectedVisionRight.ToString()))
+                                    {
+                                        <td class="" colspan="2" style="text-align: center">@CommonResourceManager.Current.GetString("矫正视力(右)")：@Convert.ToDouble(item.CorrectedVisionRight).ToString("f1")</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="" colspan="2" style="text-align: center">@CommonResourceManager.Current.GetString("矫正视力(右)")：@CommonResourceManager.Current.GetString("未输入")</td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td valign="top" style="width:60%;">
+                                                <table style="margin-bottom:0px;width:60%;margin:0px 0px 20px 20px;">
+                                                    <tr style="height:30px;">
+                                                        @{
+                                    List<MEyeImageAttachmentVM> originalImageList = mEyeImageAttachmentDal.GetGlaucomaReadRECAttachmentList(item.EyeImageID.ToString());
+                                    //判断是一张图还是两张图
+                                                        }
+                                                        @foreach (MEyeImageAttachmentVM Glaucoma in originalImageList)
+                                                        {
+                                                            if (Glaucoma.EITypeV == "ManualCutGlaucoma_LeftEye" || Glaucoma.EITypeV == "ManualTaggingGlaucoma_LeftEye")
+                                                            {
+                                                                <td>@CommonResourceManager.Current.GetString("左眼")</td>
+                                                            }
+                                                            else if (Glaucoma.EITypeV == "ManualCutGlaucoma_RightEye" || Glaucoma.EITypeV == "ManualTaggingGlaucoma_RightEye")
+                                                            {
+                                                                <td>@CommonResourceManager.Current.GetString("右眼")</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@CommonResourceManager.Current.GetString("不确定")</td>
+                                                            }
+
+                                                        }
+                                                    </tr>
+                                                    <tr>
+                                                        @for (int i = 0; i < originalImageList.Count; i++)
+                                                        {
+
+                                                            List<MEyeImageAttachmentVM> returnImage = mEyeImageAttachmentDal.GetTaggingGlaucomaReadRECAttachmentList(originalImageList[i].EyeImageID.ToString());
+                                                            <td style="text-align:left;">
+                                                                <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(originalImageList[i].EIAttachmentPath)">
+                                                                    <img name="img_o" style="width: 180px; height:190px;cursor:pointer;margin-left:10px;margin-bottom:10px;margin-right:50px;" src="@Url.Content(originalImageList[i].EIAttachmentPath)" class="img-rounded">
+                                                                </a>
+                                                                <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(returnImage[i].EIAttachmentPath)">
+                                                                    <img name="img_d" style="width: 180px; height:190px;cursor:pointer;margin-left:10px;" src="@Url.Content(returnImage[i].EIAttachmentPath)" class="img-rounded">
+                                                                </a>
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td style="text-align: center;" valign="top">
+
+                                                <table style="border:1px solid #e9e1e1;width:245px;margin-top:20px;">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            @CommonResourceManager.Current.GetString("Mean Value of Cup/Disc Radius Ratio")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("右眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("左眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("正常值")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;">
+                                                        @{
+                                                        for (int i = 0; i < originalImageList.Count; i++)
+                                                        {
+                                                            bleeing = mEyeImageAttachmentDal.GetAnalysisGlaucomaRemarkID(originalImageList[i].EyeImageID.ToString());
+                                                        }
+                                                        meyeImagebleeding = mEyeImageBleedingdal.GetMeyeImageBleedingVIew(bleeing.EIAttachmentID.ToString());
+                                                        }
+                                                        <td>
+                                                            @meyeImagebleeding.MVOCDRR_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.MVOCDRR_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.MVOCDRR_Normal
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table style="border:1px solid #e9e1e1;width:245px;margin-top:40px;">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            @CommonResourceManager.Current.GetString("ISNT score")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("右眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("左眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("正常值")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;">
+                                                        <td>
+                                                            @meyeImagebleeding.IsntScore_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.IsntScore_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.IsntScore_Normal
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table style="border:1px solid #e9e1e1;width:245px;margin-top:40px;">
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            @CommonResourceManager.Current.GetString("Cup/Disc Radius Ratio")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td></td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("右眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("左眼")
+                                                        </td>
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("正常值")
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("Inferior")
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Inferior_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Inferior_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Inferior_Normal
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("Superior")
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Superior_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Superior_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Superior_Normal
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;border-bottom:1px solid #e9e1e1">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("Nasal")
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Nasal_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Nasal_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Nasal_Normal
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: center;">
+                                                        <td>
+                                                            @CommonResourceManager.Current.GetString("Temporal")
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Temporal_OD
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Temporal_OS
+                                                        </td>
+                                                        <td>
+                                                            @meyeImagebleeding.Temporal_Normal
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{
+                        originalImageListOne = mEyeImageAttachmentDal.GetGlaucomaImageID(item.EyeImageID.ToString());
+                                    }
+                                    <table style="margin-left:20px;">
+                                        <tr>
+                                            <td>
+                                                @for (int i = 0; i < originalImageListOne.Count; i++)
+                                                {
+                                                    if (i == 0)
+                                                    {
+                                                        <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(originalImageListOne[i].EIAttachmentPath)">
+                                                            <img name="img_dh" style="width: 260px;cursor: pointer;margin-left:10px;margin-bottom:30px;margin-right:50px;" src="@Url.Content(originalImageListOne[i].EIAttachmentPath)" class="img-rounded">
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/WXMain/ImageDetail?ImgUrl=@Url.Content(originalImageListOne[i].EIAttachmentPath)">
+                                                            <img name="img_dh" style="width: 260px;cursor: pointer;margin-left:10px;margin-bottom:30px;margin-right:30px;" src="@Url.Content(originalImageListOne[i].EIAttachmentPath)" class="img-rounded">
+                                                        </a>
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="border-top:1px solid #e9e1e1">
+                                <td valign="bottom">
+                                    <script type="text/javascript">
+                                        $(function () {
+
+                                          @*//  $('#QRcode').attr('src', '@Url.Content(TwoCodeBar.GetTwoCodeBars("http://" + ViewBag.Authority + param))');*@
+                                        });
+                                    </script>
+                                    <!--印象-->
+                                    <table align="left" style="width:100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @CommonResourceManager.Current.GetString("印象：") @item.Suggestion
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="margin-top:50px;">
+                                                    @if (CookieHelper.Read("H-Language").Equals("zh-cn"))
+                                                    {
+                                                        @CommonResourceManager.Current.GetString("建议：")@Html.Raw(item.Impression);
+                                                    }
+                                                    else
+                                                    {
+                                                        @CommonResourceManager.Current.GetString("建议：")@Html.Raw(item.Impression_EN);
+                                                    }
+                                                    @*<div style="margin-top:20px;">
+                                                        @CommonResourceManager.Current.GetString("操作者：")_ _ _ _ _ _ _ _
+                                                    </div>*@
+                                                </td>
+                                                @{
+                        List<MUserVM> m_User = mUserdal.GetEReadImg(item.EyeImageID.ToString());}
+                                                @foreach (MUserVM m in m_User)
+                                                {
+
+                                                    <td style="vertical-align:bottom;text-align:right;">
+                                                        @*@CommonResourceManager.Current.GetString("技术咨询")：*@
+                                                    </td>
+                                                    <td style="vertical-align:bottom;text-align:right;width:90px;">
+                                                        @*<img src="@Url.Content(m.SignatureURL)" height="50px" width="90px" />*@
+                                                    </td>
+                                                    <td style="text-align: right; vertical-align:bottom;width:50px;">
+                                                        @*<img id="QRcode" alt="二维码" height="80px" src="@Url.Content(ViewBag.img)" />*@
+                                                    </td>
+                                                    break;
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                }
+            }
+        </div>
+        <!--endprint-->
+    </div>
+</div>

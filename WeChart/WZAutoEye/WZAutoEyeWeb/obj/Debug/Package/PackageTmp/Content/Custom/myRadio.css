@@ -1,0 +1,126 @@
+.select {
+	opacity: 1;
+}
+.unselect {
+	opacity: 0.3;
+}
+.btn-group-1red-1 {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1red-1:hover {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1red-1:focus {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1red-1:active {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.active.btn-group-1red-1 {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.open .btn-group-1red-1.dropdown-toggle {
+	border-color: rgb(172, 41, 37); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1red-2 {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1red-2:hover {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1red-2:focus {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1red-2:active {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.active.btn-group-1red-2 {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.open .btn-group-1red-2.dropdown-toggle {
+	border-color: rgb(57, 132, 57); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1green-1 {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1green-1:hover {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1green-1:focus {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1green-1:active {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.active.btn-group-1green-1 {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.open .btn-group-1green-1.dropdown-toggle {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-1green-2 {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1green-2:hover {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1green-2:focus {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1green-2:active {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.active.btn-group-1green-2 {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.open .btn-group-1green-2.dropdown-toggle {
+	border-color: rgb(172, 41, 37); border-radius: 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-1green-3:hover {
+	border-color: orange; border-radius: 0px 4px 4px; height: 30px; color: rgb(255, 255, 255); background-color: orange;
+}
+.btn-group-1green-3:focus {
+	border-color: orange; border-radius: 0px 4px 4px; height: 30px; color: rgb(255, 255, 255); background-color: orange;
+}
+.btn-group-1green-3:active {
+	border-color: orange; border-radius: 0px 4px 4px; height: 30px; color: rgb(255, 255, 255); background-color: orange;
+}
+.btn-group-1green-3 {
+	border-color: orange; border-radius: 0px 4px 4px; height: 30px; color: rgb(255, 255, 255); background-color: orange;
+}
+.btn-group-11red-2 {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-11red-2:hover {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-11red-2:focus {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-11red-2:active {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.active.btn-group-11red-2 {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.open .btn-group-11red-2.dropdown-toggle {
+	border-color: rgb(172, 41, 37); border-radius: 0px 4px 4px 0px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(210, 50, 45);
+}
+.btn-group-11red-1 {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-11red-1:hover {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-11red-1:focus {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.btn-group-11red-1:active {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.active.btn-group-11red-1 {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}
+.open .btn-group-11red-1.dropdown-toggle {
+	border-color: rgb(57, 132, 57); border-radius: 4px 0px 0px 4px; height: 30px; color: rgb(255, 255, 255); background-color: rgb(71, 164, 71);
+}

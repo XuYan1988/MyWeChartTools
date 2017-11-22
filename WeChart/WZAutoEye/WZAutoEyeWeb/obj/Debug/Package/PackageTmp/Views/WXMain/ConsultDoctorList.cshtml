@@ -1,0 +1,211 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("科室介绍");
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>糖网筛防</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+    @*<link rel="stylesheet" href="http://cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">*@
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+
+            @*<a class="weui-cell weui-cell_access" href="http://mp.weixin.qq.com/s/u8QsvxGrjLnQnuOL_t_BZw">
+                <div class="weui-cell__hd"><img src="http://16k59360l5.imwork.net/WXMain/images/moren.jpg" alt="" style="width:55px;height:65px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>「专家介绍」专家A</p>
+                    <p style="font-size:12px;color:grey">2017-10-9 XX大学医学部主任 教授</p>
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://mp.weixin.qq.com/s/6ykyERaSgpWvXodtIMR85g">
+                <div class="weui-cell__hd"><img src="http://16k59360l5.imwork.net/WXMain/images/moren.jpg" alt="" style="width:55px;height:65px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>「专家介绍」专家B</p>
+                    <p style="font-size:12px;color:grey">2017-10-7 XX大学附属医院主任医师 教授</p>
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="http://16k59360l5.imwork.net/WXMain/images/moren.jpg" alt="" style="width:55px;height:65px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>「专家介绍」专家C</p>
+                    <p style="font-size:12px;color:grey">2017-10-4 北京XX医院主任医师 教授</p>
+                </div>
+            </a>*@
+
+        </div>
+
+
+        <div id="loadmore" class="weui-loadmore" style="display:none">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="nomore" class="weui-loadmore weui-loadmore_line" style="">
+            <span class="weui-loadmore__tips">已无更多</span>
+        </div>
+    </script>
+
+
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+    @*<script src="../../Scripts/jquery.min.js"></script>*@
+    <script src="../../Scripts/jquery-weui.min.js"></script>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    var StaticPageCount = 10;//页面显示条数
+    var pageIndex = 0;//当前页面数   第0页为初始页面
+    var count = 0; //返回的记录数
+    var remainder = 0;
+
+    var time = 2;//时间排序参数
+    var name = 0;//姓名排序参数
+
+    // ios
+    $(function () {
+        var $iosActionsheet = $('#iosActionsheet');
+        var $iosMask = $('#iosMask');
+
+        function hideActionSheet() {
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+        }
+        $iosMask.on('click', hideActionSheet);
+        $('#iosActionsheetCancel').on('click', hideActionSheet);
+        $("#showIOSActionSheet").on("click", function () {
+            $iosActionsheet.addClass('weui-actionsheet_toggle');
+            $iosMask.fadeIn(200);
+        });
+    });
+
+    $(function () {
+        //PatienttListBind();
+    });
+    //加载更多
+    $(function () {
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function () {
+            var loadmore = document.getElementById("loadmore");
+            var nomore = document.getElementById("nomore");
+            remainder = count % StaticPageCount;
+            if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                setTimeout(function () {
+                    loadmore.style.display = "none";
+                    nomore.style.display = "";
+                }, 1500);   //模拟延迟
+                return;
+            }
+            else {
+                loadmore.style.display = "";
+            }
+            if (loading) return;
+            var flag = false;
+            loading = true;
+            setTimeout(function () {
+                PatienttListBind();
+                loading = false;
+            }, 1500);   //模拟延迟
+            loadmore.style.display = "none";
+        });
+    })
+    //绑定数据
+    function PatienttListBind() {
+        var openid = '@ViewBag.OpenID';
+        $.post('@Url.Action("GetPatientList", "WXMain")',
+                {
+                    openid: openid,
+                    time: time,
+                    name: name,
+                    pageIndex: pageIndex,
+                    pageCount: StaticPageCount,
+                },
+                function (data) {
+                    var jsonData = JSON.parse(data.JsonData);
+                    count = data.Total;
+                    var htmlData = "";
+                    if (jsonData != null && jsonData.length > 0) {
+                        for (var i = 0; i < jsonData.length; i++) {
+                            htmlData += "<a style=\"color:black;\" class=\"weui-cell weui-cell_access\" href=\"/WXMain/ReportList?PatientID=" + jsonData[i].PatientID + "&openid=" + openid + "\">";
+                            htmlData += "<div class=\"weui-cell__bd\">";
+                            htmlData += "<p>患者:" + jsonData[i].PatientNM + "&nbsp&nbsp年龄: " + jsonData[i].Age + "</p>";
+                            htmlData += "<p>最近就诊时间:" + jsonData[i].CheckTime + "</p>";
+                            htmlData += "</div><div class=\"weui-cell__ft\"></div>";
+                            htmlData += " </a>";
+                            $('.weui-cells').append(htmlData);
+                            htmlData = "";
+                        }
+                    }
+                    pageIndex = pageIndex + 1;
+                    remainder = count % StaticPageCount;
+
+                    if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                        loadmore.style.display = "none";
+                        nomore.style.display = "";
+                        return;
+                    }
+                });
+    }
+    function ascendName() {
+        if (name == 0) {
+            name = 1;//姓名排序参数
+            $('#ascendName').html('按姓名升序');
+        }
+        else {
+            name = 0;//姓名排序参数
+            $('#ascendName').html('按姓名降序');
+        }
+
+        var $iosMask = $('#iosMask');
+        var $iosActionsheet = $('#iosActionsheet');
+        $iosActionsheet.removeClass('weui-actionsheet_toggle');
+        $iosMask.fadeOut(200);
+
+        time = 2;//时间排序参数
+        pageIndex = 0;
+        loadmore.style.display = "none";
+        nomore.style.display = "none";
+        $('.weui-cells').empty();
+        PatienttListBind();
+
+
+    }
+    function ascendTime() {
+        if (time == 0) {
+            time = 1;//姓名排序参数
+            $('#ascendTime').html('按时间升序');
+        }
+        else {
+            time = 0;//姓名排序参数
+            $('#ascendTime').html('按时间降序');
+        }
+
+        var $iosMask = $('#iosMask');
+        var $iosActionsheet = $('#iosActionsheet');
+        $iosActionsheet.removeClass('weui-actionsheet_toggle');
+        $iosMask.fadeOut(200);
+
+        name = 2;//姓名排序参数
+        pageIndex = 0;
+        loadmore.style.display = "none";
+        nomore.style.display = "none";
+        $('.weui-cells').empty();
+        PatienttListBind();
+
+
+    }
+</script>

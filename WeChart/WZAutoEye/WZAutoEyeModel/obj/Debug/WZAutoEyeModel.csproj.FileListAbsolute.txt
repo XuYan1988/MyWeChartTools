@@ -1,0 +1,10 @@
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\WZAutoEyeModel.dll.config
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\WZAutoEyeModel.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\WZAutoEyeModel.pdb
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\EntityFramework.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\EntityFramework.SqlServer.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\EntityFramework.xml
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\bin\Debug\EntityFramework.SqlServer.xml
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\obj\Debug\WZAutoEyeModel.csprojResolveAssemblyReference.cache
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\obj\Debug\WZAutoEyeModel.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeModel\obj\Debug\WZAutoEyeModel.pdb

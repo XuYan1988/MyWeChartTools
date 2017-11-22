@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>上工医信</title>
+    <link rel="stylesheet" href="../style/weui.css" />
+    <link rel="stylesheet" href="./example.css" />
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+
+            <div class="page__bd">
+                <div class="weui-cells__title">
+                    患者管理
+                    <a href="javascript:;" id="showIOSActionSheet" class="weui-btn weui-btn_mini weui-btn_primary">排序</a>
+                    <div class="weui-cells">
+
+
+
+                   
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--BEGIN actionSheet-->
+            <div>
+                <div class="weui-mask" id="iosMask" style="display: none"></div>
+                <div class="weui-actionsheet" id="iosActionsheet">
+                    <div class="weui-actionsheet__title">
+                        <p class="weui-actionsheet__title-text">选择排序方式</p>
+                    </div>
+                    <div class="weui-actionsheet__menu">
+                        <div class="weui-actionsheet__cell">按时间</div>
+                        <div class="weui-actionsheet__cell">按姓名</div>
+                        <div class="weui-actionsheet__cell">按医院</div>
+                    </div>
+                    <div class="weui-actionsheet__action">
+                        <div class="weui-actionsheet__cell" id="iosActionsheetCancel">取消</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--END actionSheet-->
+
+        </div>
+        <script type="text/javascript">
+                // ios
+                $(function () {
+                    var $iosActionsheet = $('#iosActionsheet');
+                    var $iosMask = $('#iosMask');
+
+                    function hideActionSheet() {
+                        $iosActionsheet.removeClass('weui-actionsheet_toggle');
+                        $iosMask.fadeOut(200);
+                    }
+
+                    $iosMask.on('click', hideActionSheet);
+                    $('#iosActionsheetCancel').on('click', hideActionSheet);
+                    $("#showIOSActionSheet").on("click", function () {
+                        $iosActionsheet.addClass('weui-actionsheet_toggle');
+                        $iosMask.fadeIn(200);
+                    });
+                });
+
+                // android
+                $(function () {
+                    var $androidActionSheet = $('#androidActionsheet');
+                    var $androidMask = $androidActionSheet.find('.weui-mask');
+
+                    $("#showAndroidActionSheet").on('click', function () {
+                        $androidActionSheet.fadeIn(200);
+                        $androidMask.on('click', function () {
+                            $androidActionSheet.fadeOut(200);
+                        });
+                    });
+                });
+        </script>
+
+
+
+        <div id="loadmore" class="weui-loadmore" style="display:none">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="nomore" class="weui-loadmore weui-loadmore_line" style="display:none">
+            <span class="weui-loadmore__tips">无更多数据</span>
+        </div>
+    </script>
+
+
+    <script src="./zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="./example.js"></script>
+</body>
+</html>
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+       // WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+    $(function () {
+        PatienttListBind();
+    });
+</script>
+<script type="text/javascript">
+    var StaticPageCount = 6;//页面显示条数
+    var pageIndex = 0;//当前页面数   第0页为初始页面
+    var count = 0; //返回的记录数
+    var remainder = 0;
+    //加载更多
+    $(function () {
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function () {
+            var loadmore = document.getElementById("loadmore");
+            var nomore = document.getElementById("nomore");
+            remainder = count % StaticPageCount;
+            if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                setTimeout(function () {
+                    loadmore.style.display = "none";
+                    nomore.style.display = "";
+                }, 1500);   //模拟延迟
+                return;
+            }
+            else {
+                loadmore.style.display = "";
+            }
+            if (loading) return;
+            var flag = false;
+            loading = true;
+            setTimeout(function () {
+                PatienttListBind();
+                loading = false;
+            }, 1500);   //模拟延迟
+            loadmore.style.display = "none";
+        });
+    })
+    //绑定数据
+    function PatienttListBind() {
+        var openid = '@ViewBag.OpenID';
+        var patient = '@ViewBag.PatientID';
+        $.post('@Url.Action("GetPatientList", "WXMain")',
+                {
+                    openid: openid,
+                    patient: patient,
+                    pageIndex: pageIndex,
+                    pageCount: StaticPageCount,
+                },
+                function (data) {
+                    var jsonData = JSON.parse(data.JsonData);
+                    count = data.Total;
+                    var htmlData = "";
+                    //var checkTime = "";
+                    if (jsonData != null && jsonData.length > 0) {
+                        for (var i = 0; i < jsonData.length; i++) {
+                            htmlData += "<a style=\"color:black;\" class=\"weui-cell weui-cell_access\" href=\"/WXMain/ReportList?PatientID=" + jsonData[i].PatientID + "&openid=" + openid + "\">";
+                            htmlData += "<div class=\"weui-cell__bd\">";
+                            htmlData += "<p>患者:" + jsonData[i].PatientNM + "&nbsp&nbsp年龄: " + jsonData[i].Age + "</p>";
+                            htmlData += "<p>最近就诊时间:" + jsonData[i].CheckTime + "</p>";
+                            htmlData += "</div><div class=\"weui-cell__ft\"></div>";
+                            htmlData += " </a>";
+                            $('.weui-cells').append(htmlData);
+                            htmlData = "";
+                        }
+                    }
+                    pageIndex = pageIndex + 1;
+                    remainder = count % StaticPageCount;
+
+                    if (remainder == 0 && (parseInt(count / StaticPageCount) == pageIndex) || remainder != 0 && (Math.ceil(count / StaticPageCount) == pageIndex)) {
+                        loadmore.style.display = "none";
+                        nomore.style.display = "";
+
+                        return;
+                    }
+                });
+    }
+
+
+
+
+    // ios
+    $(function () {
+        var $iosActionsheet = $('#iosActionsheet');
+        var $iosMask = $('#iosMask');
+
+        function hideActionSheet() {
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+        }
+
+        $iosMask.on('click', hideActionSheet);
+        $('#iosActionsheetCancel').on('click', hideActionSheet);
+        $("#showIOSActionSheet").on("click", function () {
+            $iosActionsheet.addClass('weui-actionsheet_toggle');
+            $iosMask.fadeIn(200);
+        });
+    });
+
+    // android
+    $(function () {
+        var $androidActionSheet = $('#androidActionsheet');
+        var $androidMask = $androidActionSheet.find('.weui-mask');
+
+        $("#showAndroidActionSheet").on('click', function () {
+            $androidActionSheet.fadeIn(200);
+            $androidMask.on('click', function () {
+                $androidActionSheet.fadeOut(200);
+            });
+        });
+    });
+</script>

@@ -1,0 +1,14 @@
+Time:    2017-11-09 15:39:11.282
+Action:  post提交
+Message: {"access_token":"ZVZ1mh-ypa4dZFRasaZMFtar1tGXn3R98Aa_lD8rx2ivkrzLHEmYNtKqGWnN27iL2FJCOaesRDW70gHOKBIb-yzOua9D75YA9tP4dzjLLBZlx_00O6GZu-hWwPdpV8rDAWVbADALHG","expires_in":7200}
+
+-----------------------------------------------------------
+
+
+Time:    2017-11-09 15:39:11.382
+Action:  post提交
+Message: {"errcode":40003,"errmsg":"invalid openid hint: [Rdu880150vr24]"}
+
+-----------------------------------------------------------
+
+

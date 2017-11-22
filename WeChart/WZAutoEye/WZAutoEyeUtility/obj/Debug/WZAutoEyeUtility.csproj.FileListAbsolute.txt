@@ -1,0 +1,6 @@
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\bin\Debug\WZAutoEyeUtility.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\bin\Debug\WZAutoEyeUtility.pdb
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\bin\Debug\ThoughtWorks.QRCode.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\obj\Debug\WZAutoEyeUtility.csprojResolveAssemblyReference.cache
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\obj\Debug\WZAutoEyeUtility.dll
+C:\Project\WZAutoEye\WZAutoEye\WZAutoEyeUtility\obj\Debug\WZAutoEyeUtility.pdb

@@ -1,0 +1,66 @@
+.cal_panel {
+	font: 12px/normal Verdana, Arial, sans-serif; padding: 3px 2px 2px 3px; border: 2px solid rgb(10, 166, 224); border-image: none; cursor: default; font-size-adjust: none; font-stretch: normal; background-image: url("images/d_h_bg.gif"); background-repeat: repeat-x; background-color: rgb(255, 255, 255);
+}
+.cal_panel #py {
+	top: 17px; width: 9px; height: 10px; line-height: 10px; position: absolute; cursor: pointer; background-image: url("images/d_a_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel #pm {
+	top: 17px; width: 9px; height: 10px; line-height: 10px; position: absolute; cursor: pointer; background-image: url("images/d_a_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel #ny {
+	top: 17px; width: 9px; height: 10px; line-height: 10px; position: absolute; cursor: pointer; background-image: url("images/d_a_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel #nm {
+	top: 17px; width: 9px; height: 10px; line-height: 10px; position: absolute; cursor: pointer; background-image: url("images/d_a_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel #date {
+	left: 34px; top: 13px !important; width: 96px; height: 16px; text-align: center; line-height: 16px; position: absolute; cursor: default;
+}
+.cal_panel #year {
+	font: 11px/normal Verdana, Arial, sans-serif; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel #month {
+	font: 11px/normal Verdana, Arial, sans-serif; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel #py {
+	background-position: 0px -10px; left: 10px;
+}
+.cal_panel #pm {
+	background-position: 0px -30px; left: 24px;
+}
+.cal_panel #ny {
+	background-position: 0px 0px; right: 10px;
+}
+.cal_panel #nm {
+	background-position: 0px -20px; right: 24px;
+}
+.cal_panel table thead {
+	font: bold 14px/normal свт╡, Tahoma, Arial, sans-serif; height: 22px; text-align: center; color: rgb(5, 151, 219); vertical-align: top; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel tbody td {
+	font: 11px/normal Verdana, Arial, sans-serif; width: 22px; height: 22px; text-align: center; vertical-align: middle; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel .tdday {
+	background-position: 0px 0px; background-image: url("images/d_t_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel .tday {
+	background-position: 0px -22px; background-image: url("images/d_t_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel .over {
+	background-position: 0px -22px; background-image: url("images/d_t_bg.gif"); background-repeat: no-repeat;
+}
+.cal_panel #iy {
+	font: 11px/normal Verdana, Arial, sans-serif; border: 1px solid rgb(127, 157, 185); border-image: none; height: 16px; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel #im {
+	font: 11px/normal Verdana, Arial, sans-serif; border: 1px solid rgb(127, 157, 185); border-image: none; height: 16px; font-size-adjust: none; font-stretch: normal;
+}
+.cal_panel #foot {
+	height: 20px; margin-top: 1px;
+}
+.cal_panel #t1 {
+	padding: 2px 5px 1px; border: 1px solid rgb(227, 227, 227); border-image: none; top: 3px; position: relative; background-color: rgb(247, 247, 247); _padding: 4px 5px 0px 5px;
+}
+.cal_panel #t2 {
+	font: 11px/normal Verdana, Arial, sans-serif; left: 15px; top: 3px; color: rgb(0, 51, 153); position: relative; font-size-adjust: none; font-stretch: normal;
+}

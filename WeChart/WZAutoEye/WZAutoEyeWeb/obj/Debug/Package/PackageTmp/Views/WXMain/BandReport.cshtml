@@ -1,0 +1,141 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Model
+@using WZAutoEye.WZAutoEyeMVC.Utility
+@{
+    ViewBag.Title = CommonResourceManager.Current.GetString("报告绑定");
+    Layout = "";
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/Custom/jquery")
+@Scripts.Render("~/Scripts/Custom/jquery.Huploadify.js")
+<script>
+    //禁用微信内 分享及发送好友等功能
+    function onBridgeReady() {
+       // WeixinJSBridge.call('hideOptionMenu');
+    }
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+    //返回事件监听   返回后禁用分享功能
+    window.addEventListener("popstate", function (e) {
+
+        $('#btnBand').attr("class", "weui-btn weui-btn_primary");
+        $('#btnBand').attr("onclick", "bandReport()");
+        document.getElementById('btnBand').innerHTML = "绑定";
+
+
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    }, false);
+</script>
+<script type="text/javascript">
+    function bandReport() {
+        var idCard = $('#idCard').val();
+        var name = $('#name').val();
+        var idcard_div = document.getElementById('idcard_div');
+        var idname_div = document.getElementById('idname_div');
+
+        if (idCard == "") {
+            idcard_div.setAttribute("class", "weui-cell weui-cell_warn");
+        }
+        if (name == "") {
+            idname_div.setAttribute("class", "weui-cell weui-cell_warn");
+        }
+        if (idCard == "" || name == "") {
+            return;
+        }
+        $('#btnBand').attr("class", "weui-btn weui-btn_disabled weui-btn_primary");
+        $('#btnBand').attr("onclick", "");
+        document.getElementById('btnBand').innerHTML = "正在绑定";
+
+        var openid = '@ViewBag.OpenID';   
+        $.post('@Url.Action("BandReportAction", "WXMain")',
+                {
+                    openid: openid,//微信id
+                    idCard: idCard,//身份标识（身份证号或手机号）
+                    name: name,//姓名
+                },
+        function (data) {
+
+            if (data == 1) {
+                //成功
+                window.location.href = "/WXMain/Success";
+            }
+            else {
+                //失败
+                window.location.href = "/WXMain/Warn?flag=0";
+            }
+        });
+    }
+    function changeidCard() {
+        idcard_div.setAttribute("class", "weui-cell");
+    }
+    function changeName() {
+        idname_div.setAttribute("class", "weui-cell");
+    }
+
+</script>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>糖网筛防</title>
+    <link rel="stylesheet" href="../../Scripts/weui.css" />
+    <link rel="stylesheet" href="../../Scripts/example.css" />
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+        <div class="page">
+            <div class="page__bd">
+                <div class="weui-cells__title">信息绑定</div>
+                <div class="weui-cells weui-cells_form">
+                    <div id="idcard_div" class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label"></label>预留信息</div>
+                        <div class="weui-cell__bd">
+                            <input id="idCard" class="weui-input" type="number" pattern="[0-9]*" placeholder="身份证号或手机号" onmousedown="changeidCard()" />
+                        </div>
+                        <div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+                    <div id="idname_div" class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label"></label>姓名</div>
+                        <div class="weui-cell__bd">
+                            <input id="name" class="weui-input" type="text" placeholder="姓名" onmousedown="changeName()" />
+                        </div>
+                        <div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="page__bd page__bd_spacing" style="margin-top:5px;margin-left:10px;margin-right:10px;margin-bottom:5px" >
+                    <a id="btnBand" href="javascript:;" class="weui-btn weui-btn_primary" onclick="bandReport()">绑定</a>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jweixin-1.0.0.js"></script>
+    <script src="../../Scripts/1.0.0/weui.min.js"></script>
+    <script src="../../Scripts/example.js"></script>
+</body>
+</html>
+

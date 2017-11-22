@@ -1,0 +1,93 @@
+{
+    "button": [
+        {
+            "name": "粕等1", 
+            "sub_button": [
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "禸鎢", 
+                    "key": "ScanCode", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "ViewReportManager", 
+                    "url": ""
+                }, 
+				{
+                    "type": "click", 
+                    "name": "粕等2", 
+                    "key": "ReviewTime"
+                },
+				{
+					"type":"click",
+					"name":"粕等2",
+					"key":"DiabeticRetinopathy"
+
+				}
+            ]
+        }, 
+        {
+		"name": "粕等1", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "ViewReport", 
+                    "url": ""
+                }, 
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "DoctorTrain", 
+                    "url": ""
+                }, 
+				{
+					"type":"view",
+					"name":"粕等2",
+					"key":"Academic",
+                    "url": ""
+				}
+            ]
+            
+        }, 
+        {
+            "name": "粕等1", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "Project1",
+					"url":""
+				
+                }, 
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "Department",
+					"url": "h"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "ConsultDoctor",
+					"url": "
+                },
+				{
+                    "type": "view", 
+                    "name": "粕等2", 
+                    "key": "SGEX",
+					"url":""
+                  
+                },
+				{
+                    "type": "click", 
+                    "name": "堆  翑", 
+                    "key": "Media"
+                  
+                }
+            ]
+        }
+    ]
+}

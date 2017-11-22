@@ -1,0 +1,711 @@
+﻿#fig-viewer {
+    background: #333;
+    background: rgba(0,0,0,1);
+    position: fixed;
+    top: 0;
+    z-index: 998;
+    width: 100%;
+    height: 100%;
+}
+
+#fig-viewer-content {
+    background: #000;
+    /*margin: 10px*/
+}
+
+
+#fig-viewer .header {
+    font-family: 'FS Albert Web Regular',Verdana,sans-serif;
+    padding: 7px 21.5em 0 1.1%;
+    min-height: 46px;
+    background: #F8AF2D;
+    position: relative;
+    border-right: 56px solid transparent;
+    z-index: 1000;
+}
+
+#fig-viewer h1 {
+    font-size: 1.077em;
+    margin-bottom: 2px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #efefef;
+    margin-top: 0px;
+}
+
+    #fig-viewer h1 a {
+        color: #efefef;
+    }
+
+#fig-viewer .authors {
+    font-size: .846em;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #ccc;
+}
+
+    #fig-viewer .authors li {
+        display: inline;
+    }
+
+        #fig-viewer .authors li:not(:last-child):after {
+            content: ", ";
+        }
+
+        #fig-viewer .authors li .author_meta {
+            display: none;
+        }
+
+#fig-viewer .equal-contrib {
+    display: none;
+}
+
+#fig-viewer .nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1001;
+}
+
+    #fig-viewer .nav li {
+        float: left;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.231em;
+        line-height: 46px;
+        border-right: 1px solid #666;
+        padding: 0 .938em;
+    }
+
+
+
+        #fig-viewer .nav li:hover {
+            background: #3c63af;
+        }
+
+#fig-viewer.abst .nav .abst, #fig-viewer.figs .nav .figs, #fig-viewer.refs .nav .refs {
+    cursor: default;
+}
+
+#fig-viewer .close {
+    position: absolute;
+    right: -46px;
+    top: 0;
+    display: block;
+    width: 46px;
+    height: 46px;
+    background: url(~/Images/Custom/fv.sprite.png) no-repeat -40px 0;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#fig-viewer .pane {
+    display: none;
+}
+
+.figs #fig-viewer-figs {
+    display: block;
+    position: relative;
+}
+
+.abst #fig-viewer-abst {
+    display: block;
+}
+
+.refs #fig-viewer-refs {
+    display: block;
+    overflow: auto;
+}
+
+#fig-viewer-controls {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    height: 20px;
+}
+
+    #fig-viewer-controls .loading-bar {
+        position: absolute;
+        left: 50%;
+        top: 11px;
+        width: 218px;
+        height: 10px;
+        margin-left: -109px;
+        text-align: center;
+        background-color: rgba(255,255,255,0.39);
+        border-radius: 5px;
+        background-image: -webkit-linear-gradient(-45deg,rgba(255,255,255,0.2) 25%,rgba(255,255,255,0.4) 25%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.2) 75%,rgba(255,255,255,0.4) 75%,rgba(255,255,255,0.4));
+        background-image: linear-gradient(-45deg,rgba(255,255,255,0.2) 25%,rgba(255,255,255,0.4) 25%,rgba(255,255,255,0.4) 50%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.2) 75%,rgba(255,255,255,0.4) 75%,rgba(255,255,255,0.4));
+        background-size: 10px 10px;
+        -webkit-animation: lb_move 3s linear infinite;
+        animation: lb_move 3s linear infinite;
+    }
+
+@-webkit-keyframes lb_move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@keyframes lb_move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+#fv-zoom {
+    /*display: none;*/
+    position: absolute;
+    left: 40%;
+    top: 7px;
+    width: 40%;
+    margin-left: -128px;
+    padding-top: 5px;
+}
+
+#fv-zoom-sldr {
+    width: 206px;
+    margin: 0 auto;
+    height: 7px;
+    border: 0;
+    border-radius: 3px;
+    background: #ccc;
+    background: rgba(255,255,255,0.64);
+    z-index: 1001;
+}
+
+    #fv-zoom-sldr .ui-slider-handle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: 0;
+        margin-left: -7px;
+        top: -4px;
+        cursor: ew-resize;
+    }
+
+#fv-zoom-min, #fv-zoom-max {
+    width: 16px;
+    height: 16px;
+    background: url(~/Images/Custom/fv.sprite.png);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+}
+
+#fv-zoom-min {
+    left: 0;
+    background-position: -110px 0;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+    z-index: 1001;
+}
+
+#fv-zoom-max {
+    right: 0;
+    background-position: -90px 0;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    z-index: 1001;
+}
+
+#fig-viewer-controls .fig-btn {
+    display: block;
+    float: right;
+    padding: 0 10px;
+    border-left: 1px solid #666;
+    border-color: rgba(51,51,51,0.25);
+    font: 1.077em/30px 'FS Albert Web Regular',Verdana,sans-serif;
+    cursor: pointer;
+}
+
+.fig-btn .icn {
+    background-image: url(../css/fv.sprite.png);
+}
+
+#fig-viewer-controls .thmb-btn {
+    padding: 0;
+    width: 162px;
+    text-align: center;
+    font-weight: bold;
+}
+
+    #fig-viewer-controls .thmb-btn .icn {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        background-position: -90px -20px;
+        margin-right: 2px;
+    }
+
+#fig-viewer-controls .fig-btn:hover, .thmbs-vis #fig-viewer-controls .thmb-btn {
+    background-color: #3c63af;
+    color: #fff;
+}
+
+    #fig-viewer-controls .thmb-btn:hover .icn, .thmbs-vis #fig-viewer-controls .thmb-btn .icn {
+        background-position: -110px -20px;
+    }
+
+.fig-btn.next .icn, .fig-btn.prev .icn {
+    display: block;
+    width: 7px;
+    height: 11px;
+    margin-top: 10px;
+}
+
+.fig-btn.next .icn {
+    background-position: -140px 0;
+    float: right;
+    margin-left: 6px;
+}
+
+.fig-btn.next:hover .icn {
+    background-position: -140px -20px;
+}
+
+.fig-btn.prev .icn {
+    background-position: -130px 0;
+    float: left;
+    margin-right: 6px;
+}
+
+.fig-btn.prev:hover .icn {
+    background-position: -130px -20px;
+}
+
+#fig-viewer-slides .slide {
+    overflow: hidden;
+    /*display: none;*/
+    position: relative;
+}
+
+#fig-viewer-slides .figure {
+    overflow: hidden;
+    border: solid 2px #efefef;
+    position: relative;
+}
+
+    #fig-viewer-slides .figure img {
+        display: block;
+    }
+
+#fig-viewer-slides .ui-draggable {
+    cursor: move;
+}
+
+#fig-viewer-figs .drag-bx {
+    position: absolute;
+}
+
+#fig-viewer-figs .staging {
+    display: none;
+}
+
+#fig-viewer-slides .data {
+    position: relative;
+    padding-top: 30px;
+    height: 90px;
+    text-align: center;
+    background: #efefef;
+}
+
+#fig-viewer-slides .txt {
+    width: 34.4%;
+    background: #efefef;
+    background: rgba(239,239,239,0.95);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    z-index: 10;
+}
+
+    #fig-viewer-slides .txt .content, #fig-viewer-slides .txt .text-more {
+        height: 88px;
+        padding: 0 5% 0 3.1%;
+        font-family: 'FS Albert Web Regular',Verdana,sans-serif;
+    }
+
+    #fig-viewer-slides .txt .title {
+        padding-top: 3px;
+        font-size: 1.077em;
+        font-weight: bold;
+        line-height: 1.143;
+    }
+
+        #fig-viewer-slides .txt .title.test-height {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        #fig-viewer-slides .txt .title b {
+            color: #636363;
+            text-transform: uppercase;
+        }
+
+#fig-viewer-slides.txt-expand .txt .title {
+    line-height: 1.286;
+    padding-right: 16px;
+}
+
+#fig-viewer-slides.txt-expand .content {
+    display: none;
+}
+
+#fig-viewer-slides .txt .toggle.more {
+    padding: 0 5% 15px 3.1%;
+    font-weight: normal;
+    text-decoration: underline;
+    color: #3c63af;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+#fig-viewer-slides .txt .toggle.less {
+    width: 11px;
+    height: 11px;
+    background: url(~/Images/Custom/fv.sprite.png) -20px 0;
+    position: absolute;
+    top: 9px;
+    right: .9%;
+    margin-right: 14px;
+    cursor: pointer;
+    /*display: none;*/
+    border-radius: 2px;
+}
+
+    #fig-viewer-slides .txt .toggle.less:hover {
+        background-color: #3c63af;
+        background-position: -20px -20px;
+    }
+
+#fig-viewer-slides.txt-expand .txt .toggle.more {
+    display: none;
+}
+
+#fig-viewer-slides.txt-expand .txt .toggle.less {
+    display: block;
+}
+
+#fig-viewer-slides .text-more {
+    /*display: none;*/
+    font-size: .923em;
+    line-height: 1.167;
+    padding: 0 5% 15px 3.1%;
+}
+
+    #fig-viewer-slides .text-more .desc {
+        padding: 5px 0 0 0;
+    }
+
+    #fig-viewer-slides .text-more .doi {
+        padding: 15px 0 15px 0;
+    }
+
+#fig-viewer-slides .tease {
+    padding-top: 1px;
+}
+
+#fig-viewer-slides.txt-expand .text-more {
+    display: block;
+    height: 190px;
+    overflow-y: auto;
+    border-top: 1px solid #bbb;
+    border-color: rgba(0,0,0,0.2);
+}
+
+#fig-viewer-slides.txt-expand .tease {
+    display: none;
+}
+
+#fig-viewer-slides .txt p {
+    margin: 0;
+}
+
+#fig-viewer-slides .data .btn {
+    font-size: 13px;
+    line-height: 27px;
+    padding: 0 15px;
+}
+
+#fig-viewer-slides .lnk_context {
+    margin-top: 11px;
+}
+
+#fig-viewer-figs .download {
+    position: absolute;
+    top: 41px;
+    right: 2.7%;
+}
+
+    #fig-viewer-figs .download h3 {
+        float: left;
+        font-size: 13px;
+        line-height: 27px;
+        margin: 0;
+    }
+
+    #fig-viewer-figs .download .item {
+        float: left;
+        margin-left: 25px;
+    }
+
+        #fig-viewer-figs .download .item a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+
+    #fig-viewer-figs .download .size {
+        display: block;
+        font-size: .769em;
+        margin-top: 5px;
+    }
+
+    #fig-viewer-figs .download .item a:hover .btn {
+        background: #3c63af;
+        color: #fff;
+    }
+
+#fig-viewer-thmbs {
+    /*display: none;*/
+    padding-top: 35px;
+    width: 163px;
+    position: absolute;
+    bottom: 120px;
+    right: 0;
+    background: #eae9e9;
+}
+
+.thmbs-vis #fig-viewer-thmbs {
+    display: block;
+}
+
+#fig-viewer-thmbs .btn-thmb-close {
+    background: url(~/Images/Custom/fv.sprite.png) 0 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+    #fig-viewer-thmbs .btn-thmb-close:hover {
+        background-color: #3c63af;
+        background-position: 0 -20px;
+    }
+
+#fig-viewer-thmbs-content {
+    padding-left: 17px;
+    overflow: auto;
+    background: #eae9e9;
+    background: -webkit-linear-gradient(left,#eae9e9 0,#eae9e9 20px,#efefef 20px,#efefef 143px,#eae9e9 143px,#eae9e9 100%);
+    background: linear-gradient(to right,#eae9e9 0,#eae9e9 20px,#efefef 20px,#efefef 143px,#eae9e9 143px,#eae9e9 100%);
+}
+
+#fig-viewer-thmbs .thmb {
+    width: 129px;
+    height: 96px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+
+    #fig-viewer-thmbs .thmb .thmb-wrap {
+        width: 129px;
+        height: 96px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    #fig-viewer-thmbs .thmb.active {
+        cursor: default;
+    }
+
+    #fig-viewer-thmbs .thmb img {
+        border: 3px solid transparent;
+        height: auto;
+        width: auto;
+        max-width: 123px;
+        max-height: 90px;
+        display: block;
+        margin: 0 auto;
+    }
+
+#fig-viewer-abst {
+    overflow: auto;
+    font-family: 'FS Albert Web Regular',Verdana,sans-serif;
+}
+
+    #fig-viewer-abst .abstract {
+        float: left;
+        width: 59.7%;
+        margin-left: 1.1%;
+        padding: 37px 0 75px;
+        font-size: 1.462em;
+        line-height: 1.158;
+    }
+
+        #fig-viewer-abst .abstract p {
+            margin-bottom: 25px;
+            font-size: .842em;
+            line-height: 1.25;
+        }
+
+    #fig-viewer-abst .info {
+        float: right;
+        width: 34.8%;
+        margin-right: 1.1%;
+        padding: 40px 0 75px;
+        line-height: 1.077;
+    }
+
+        #fig-viewer-abst .info p {
+            border: 1px solid #e1e1e1;
+            border-top-width: 0;
+            margin: 0;
+            padding: 6px 8px 9px;
+        }
+
+            #fig-viewer-abst .info p:first-child {
+                border-top-width: 1px;
+            }
+
+            #fig-viewer-abst .info p:nth-child(odd) {
+                background: #e8e8e8;
+                border-right-color: #e8e8e8;
+                border-left-color: #e8e8e8;
+            }
+
+            #fig-viewer-abst .info p:nth-child(1) {
+                border-top-color: #e8e8e8;
+            }
+
+            #fig-viewer-abst .info p strong {
+                font-size: 1.077em;
+                display: block;
+                color: #636363;
+            }
+
+.fv-lnk-pdf a {
+    padding: 0 23px;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: normal;
+    background: #636363;
+}
+
+#fig-viewer-refs h3 {
+    margin: 25px 0 7px 21px;
+}
+
+#fig-viewer-refs ol {
+    padding-left: 3.077em;
+    width: 87.5%;
+    margin-top: 0;
+}
+
+    #fig-viewer-refs ol > li {
+        font-size: 1.231em;
+        font-weight: bold;
+        line-height: 1.25;
+        margin-bottom: 7px;
+    }
+
+#fig-viewer-refs .find {
+    font-size: .813em;
+    font-weight: normal;
+}
+
+
+
+/*Figure Viewer */
+#fig-viewer.yszp .nav .yszp,
+#fig-viewer.cxsc .nav .cxsc,
+#fig-viewer.xgzp .nav .xgzp,
+#fig-viewer.spzp .nav .spzp,
+#fig-viewer-controls,
+#fig-viewer-thmbs .btn-thmb-close,
+#fig-viewer-slides .txt .toggle.less,
+#fig-viewer .close:hover {
+    background-color: #F8AF2D;
+    color: #333;
+}
+
+#fig-viewer-thmbs .thmb.active img {
+    border-color: #F8AF2D;
+}
+
+
+.left {
+    left: 0px;
+    width: 600px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1001;
+}
+
+#fig-viewer .left li {
+    float: left;
+    color: #fff;
+    font-size: 1.231em;
+    line-height: 46px;
+    border-right: 1px solid #666;
+    padding: 0 .938em;
+}
+
+.leftButton {
+    right: -30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1001;
+}
+
+#fig-viewer .leftButton li {
+    float: left;
+    color: #fff;
+    font-size: 1.231em;
+    line-height: 46px;
+    border-right: 1px solid #666;
+    padding: 0 .938em;
+}
+
+.lg {
+    z-index: 999;
+}
+
+.active {
+    background-color: #3c63af;
+}

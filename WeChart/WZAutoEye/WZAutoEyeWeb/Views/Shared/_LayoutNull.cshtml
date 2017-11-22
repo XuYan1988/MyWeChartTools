@@ -1,0 +1,79 @@
+﻿@using System.Web.Optimization
+@using WZAutoEye.WZAutoEyeMVC.Utility
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Custom/css")
+
+    @Styles.Render("~/Content/Custom/no.response.css")
+    @Styles.Render("~/Content/Custom/hint.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Custom/jquery")
+    <style type="text/css">
+        html, body {
+            min-width: 100px;
+        }
+
+        input::-ms-clear {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        @{
+            string sysLanguage = CookieHelper.Read("H-Language");
+            if (sysLanguage == "zh-cn")
+            {
+                @Html.Raw("var language = 'zh-CN';");
+                @Html.Raw("var format = 'yyyy-mm-dd';");
+            }
+            else if (sysLanguage == "en-us")
+            {
+                @Html.Raw("var language = 'en';");
+                @Html.Raw("var format = 'mm-dd-yyyy';");
+            }
+        }
+        $(function () {
+            $('.form_date').datetimepicker({
+                minView: "month",
+                language: language,
+                format: format,
+                autoclose: true
+            });
+
+            $('.form_date_EndToday').datetimepicker({
+                minView: "month",
+                language: language,
+                format: format,
+                autoclose: true,
+                endDate: new Date()
+            });
+
+            $('.form_date_StartToday').datetimepicker({
+                minView: "month",
+                language: language,
+                format: format,
+                autoclose: true,
+                startDate: new Date()
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
+
