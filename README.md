@@ -1,5 +1,5 @@
 # WeChart
-2017-11-22 (13:00)
+v1.0.1 2017-11-22 (13:06)
 
 ● Implementing template message and one-time message interface
 
